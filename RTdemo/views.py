@@ -8,6 +8,5 @@ def para_in(request):
     cursor = connection.cursor()
     cursor.execute("select * from test_p")
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
-    return render(request,"demo_page.html")
+    data={"paras":rows}
+    return render(request,"demo_page.html",context=data)
