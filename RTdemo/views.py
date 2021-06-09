@@ -4,7 +4,7 @@ from django.db import connection
 import os
 
 #获取参数列表
-def parameter(request):
+def para_in(request):
     cursor = connection.cursor()
     cursor.execute("select * from test_p")
     rows = cursor.fetchall()
