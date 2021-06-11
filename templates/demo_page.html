@@ -1,34 +1,60 @@
 {% extends 'common.html' %}
+{% block title %}<title>参数列表</title>{% endblock %}
 {% block body_block %}
-<div><h1>参数列表</h1></div>
-<div>
-    {{ paras }}<br>
+    <div><h1>参数列表</h1></div>
+    <div>
+        {{ paras }}<br>
+        {% for para in paras %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>参数含义</th>
+                    <th>值</th>
+                    <th>单位</th>
+                    <th>所属模块</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-lg-2">{{ para.0 }}</td>
+                    <td class="col-lg-2">{{ para.1 }}</td>
+                    <td class="col-lg-2"></td>
+                    <td class="col-lg-2">{{ para.2 }}</td>
+                    <td class="col-lg-2">{{ para.3 }}</td>
+                    <td class="col-lg-2">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pModal">编辑</button>
+                        <button type="button" class="btn btn-danger">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        {% endfor %}
 
-    {% for para in paras %}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>参数名</th>
-                <th>参数含义</th>
-                <th>值</th>
-                <th>单位</th>
-                <th>所属模块</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row" class="col-lg-1">i</th>
-                <td class="col-lg-2">{{ para.0 }}</td>
-                <td class="col-lg-2">{{ para.1 }}</td>
-                <td class="col-lg-2"></td>
-                <td class="col-lg-2">{{ para.2 }}</td>
-                <td class="col-lg-2">{{ para.3 }}</td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- 编辑参数模态框 -->
+    <div class="modal fade" id="pModal" tabindex="-1" role="dialog" aria-labelledby="pModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="pModalLabel">编辑参数</h4>
+                </div>
+                <!-- 模态框主体 -->
+                <div class="modal-body">
+                    <form method="post">
+
+                    </form>
+                </div>
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
         </div>
-
-    {% endfor %}
+    </div>
 {% endblock %}
 
