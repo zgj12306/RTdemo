@@ -18,7 +18,7 @@ class Parameters(models.Model):
     name = models.CharField('参数名', max_length=50)
     display_name = models.CharField('参数中文名', max_length=100)
     unit = models.CharField('单位', max_length=10, null=True, blank=True)
-    chp_id = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
+    chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
 
     def __str__(self):
         return self.name
@@ -38,10 +38,10 @@ class Projects(models.Model):
 # 章节段落内容
 class Paragraph(models.Model):
     content = models.TextField('内容', null=True, blank=True)
-    chp_id = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
+    chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
 
     def __str__(self):
-        return self.chp_id
+        return self.chp
 
 
 # 表
@@ -76,9 +76,9 @@ class Template(models.Model):
 
 
 # demo显示参数用
-class Test_Value(models.Model):
-    parameter_id = models.ForeignKey(Parameters, on_delete=models.CASCADE, db_index=True)
+class TestValue(models.Model):
+    parameter = models.ForeignKey(Parameters, on_delete=models.CASCADE, db_index=True)
     value = models.CharField('参数值', max_length=100, null=False)
 
     def __str__(self):
-        return self.parameter_id
+        return self.parameter
