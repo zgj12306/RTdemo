@@ -4,7 +4,7 @@
     <div><h1>参数列表</h1></div>
     <div>
         {% for item in list %}
-{#            {{ item }}<br>#}
+            {#            {{ item }}<br>#}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -24,7 +24,8 @@
                     <td class="col-lg-2">{{ item.4 }}</td>
                     <td class="col-lg-2">{{ item.5 }}</td>
                     <td class="col-lg-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pModal">编辑
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pModal"
+                                onclick="editpara">编辑
                         </button>
                         <button type="button" class="btn btn-danger">删除</button>
                     </td>
@@ -45,8 +46,37 @@
                 </div>
                 <!-- 模态框主体 -->
                 <div class="modal-body">
-                    <form method="post">
-
+                    <form class="bs-example bs-example-form form-horizontal" role="form" method="post">
+                        <div class="form-group col-sm-10">
+                            <label for="chapter" class="control-label col-sm-3">所属章节:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="chapter" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="parameter" class="control-label col-sm-3">参数名:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="parameter" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="displayname" class="control-label col-sm-3">含义:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="displayname" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="value" class="control-label col-sm-3">值:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="value">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="unit" class="control-label col-sm-3">单位:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="unit" readonly>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <!-- 模态框底部 -->
