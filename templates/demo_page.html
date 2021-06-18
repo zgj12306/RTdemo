@@ -3,14 +3,12 @@
 {% block body_block %}
     <div><h1>参数列表</h1></div>
     <div><h2></h2>
-    <form class="form-inline" method="get" action="{% url 'para_in' %}">
+    <form class="form-inline" method="get" >
         <div class="form-group input-group">
-            {#        <label class="sr-only" for="exampleInputAmount">章节：</label>#}
             <div class="input-group-addon">章节：</div>
             <input type="text" class="form-control" name="q" id="q" placeholder="chapter_id">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default"
-                        {#                        onclick="javascrtpt:window.location.href='{% url 'demo_page' %}?q='">搜索#}
                         onclick="load()">搜索
                 </button>
             </div>
@@ -39,7 +37,7 @@
                     <td class="col-lg-2">{{ item.5 }}</td>
                     <td class="col-lg-2">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pModal"
-                                onclick="editpara(this)">编辑
+                                onclick="editpara({{ item }})">编辑
                         </button>
                         {#                        <button type="button" class="btn btn-danger">删除</button>#}
                     </td>
@@ -94,12 +92,11 @@
         function load() {
             let chpid = q.value;
             {#console.log(chpid)#}
-            console.log($(this).attr('action'))
-            {% comment %}$.ajax({
+            $.ajax({
                 {#data: $(this).serialize(),#}
                 data:{'q':chpid},
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
+                type: 'get',
+                url: 'demo',
                 success: function (response) {
                     console.log(response);
                     if (response['success']) {
@@ -115,12 +112,12 @@
                 error: function (request, status, error) {
                     console.log(request.responseText);
                 }
-            }){% endcomment %}
+            })
         }
 
         function editpara(obj) {
-            var tr = $(obj).parent().parent();
-            console.log(tr);
+            {#var tr = $(obj).parent().parent();#}
+            console.log(obj);
             /* var chapter = tr.children("td#title").text();
              var parameter = tr.children("td#body").text();
              var unit = tr.children("td#body").text();
