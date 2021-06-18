@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db import connection
 from .models import Chapter, TestValue, Parameters, Projects, Paragraph, Table, Column, Template
 from django.db import models
+from django.db.models import Q
 import os
 
 
@@ -14,9 +15,16 @@ def para_in(request):
     # rows = cursor.fetchall()
     # data = {"paras": rows}
     # 获取所有参数列表
-    para_list = Parameters.objects.all()
-    p_val_list = Parameters.objects.values_list("id", "name", "display_name", "testvalue__value", "unit"
-                                                 ,"chp__name"
-                                                )
+    # 有参数对应的章节ID
+    q = None
+    if 'q' in request.GET:
+        q = request.GET['q']
+        p_val_list = Parameters.objects.filter(Q(chp=q)).values_list("id", "name", "display_name", "testvalue__value",
+                                                                    "unit")
+    else:
+        # para_list = Parameters.objects.all()
+        p_val_list = Parameters.objects.values_list("id", "name", "display_name", "testvalue__value", "unit"
+        , "chp__name"
+        )
     context = {"list": p_val_list}
     return render(request, "demo_page.html", context)

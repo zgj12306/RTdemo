@@ -2,6 +2,20 @@
 {% block title %}<title>参数列表</title>{% endblock %}
 {% block body_block %}
     <div><h1>参数列表</h1></div>
+    <div><h2></h2>
+    <form class="form-inline" method="get" action="{% url 'para_in' %}">
+        <div class="form-group input-group">
+            {#        <label class="sr-only" for="exampleInputAmount">章节：</label>#}
+            <div class="input-group-addon">章节：</div>
+            <input type="text" class="form-control" name="q" id="q" placeholder="chapter_id">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default"
+                        {#                        onclick="javascrtpt:window.location.href='{% url 'demo_page' %}?q='">搜索#}
+                        onclick="load()">搜索
+                </button>
+            </div>
+        </div>
+    </form>
     <div>
         {#        {{ list }}<br>#}
         <table class="table table-striped">
@@ -34,7 +48,6 @@
             </tbody>
         </table>
     </div>
-
 
     <!-- 编辑参数模态框 -->
     <div class="modal fade" id="pModal" tabindex="-1" role="dialog" aria-labelledby="pModalLabel" aria-hidden="true">
@@ -75,8 +88,36 @@
         </div>
     </div>
 {% endblock %}
+
 {% block script_block %}
     <script>
+        function load() {
+            let chpid = q.value;
+            {#console.log(chpid)#}
+            console.log($(this).attr('action'))
+            {% comment %}$.ajax({
+                {#data: $(this).serialize(),#}
+                data:{'q':chpid},
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                success: function (response) {
+                    console.log(response);
+                    if (response['success']) {
+                        alert("Successfully sent the URL to Django");
+                    }
+                    ;
+                    if (response['error']) {
+                        {#$('#feedbackmessage').html("<div class='alert alert-danger'>" +#}
+                        {#    response['error']['comment'] + "</div>");#}
+                         alert("Could not send URL to Django. Error: " + response['error']['comment']);
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            }){% endcomment %}
+        }
+
         function editpara(obj) {
             var tr = $(obj).parent().parent();
             console.log(tr);

@@ -48,7 +48,8 @@ class Paragraph(models.Model):
 class Table(models.Model):
     name = models.CharField('表名称', max_length=200, null=False)
     order = models.IntegerField('排序', null=False)
-    row_count = models.IntegerField('初始行数', null=False, default=1)
+    # row_count = models.IntegerField('初始行数', null=False, default=1)
+    table_data = models.TextField('表格内容')
 
     def __str__(self):
         return self.name
@@ -64,6 +65,17 @@ class Column(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# 按单元格的位置存值
+class TableCellValue(models.Model):
+    table_id = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True)
+    coordinate = models.CharField('单元格坐标', max_length=10, null=False)
+    value = models.CharField('值', max_length=100, null=False)
+    proj_id = models.IntegerField('项目ID', null=True, blank=True)
+
+    def __str__(self):
+        return self.coordinate
 
 
 # 模板
