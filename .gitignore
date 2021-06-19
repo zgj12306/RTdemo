@@ -1,4 +1,4 @@
 RTdemo/settings.py
-.idea
+.idea/*
 /RTdemo/migrations/
 /RTdemo/migrations/__init__.py
