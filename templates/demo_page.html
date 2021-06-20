@@ -3,14 +3,12 @@
 {% block body_block %}
     <div><h1>参数列表</h1></div>
     <div><h2></h2></div>
-    <form class="form-inline" method="get" >
+    <form class="form-inline" url="{% url 'demo' %}" method="get">
         <div class="form-group input-group">
             <div class="input-group-addon">章节：</div>
             <input type="text" class="form-control" name="q" id="q" placeholder="chapter_id">
             <div class="input-group-btn">
-                <button type="button" class="btn btn-default"
-                        onclick="load()">搜索
-                </button>
+                <button type="submit" class="btn btn-default">搜索</button>
             </div>
         </div>
     </form>
@@ -23,7 +21,7 @@
                 <th>变量名</th>
                 <th>值</th>
                 <th>计量单位</th>
-                <th>所属模块</th>
+                {#                <th>所属模块</th>#}
                 <th>操作</th>
             </tr>
             </thead>
@@ -31,13 +29,13 @@
             {% for item in list %}
                 <tr>
                     {#                    <td class="col-lg-2">{{ list }}</td>#}
-                    <td class="col-lg-2">{{ item.2 }}</td>
-                    <td class="col-lg-2">{{ item.3 }}</td>
-                    <td class="col-lg-2">{{ item.4 }}</td>
-                    <td class="col-lg-2">{{ item.5 }}</td>
+                    <td class="col-lg-2">{{ item.display_name }}</td>
+                    <td class="col-lg-2">{{ item.testvalue__value }}</td>
+                    <td class="col-lg-2">{{ item.unit }}</td>
+                    {#                    <td class="col-lg-2">{{ item.5 }}</td>#}
                     <td class="col-lg-2">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pModal"
-                                onclick="editpara({{ item }})">编辑
+                                onclick="editpara({{ item|safe }})">编辑
                         </button>
                         {#                        <button type="button" class="btn btn-danger">删除</button>#}
                     </td>
@@ -59,10 +57,9 @@
                 <!-- 模态框主体 -->
                 <div class="modal-body">
                     <form role="form" method="post" style="margin-left: 10px; margin-right: 10px">
-                        <div class="form-group">
-                            <label for="chapter" class="control-label">所属章节:</label>
-                            <input type="text" class="form-control" id="chapter" Disabled>
-                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" id="paraid" value=""/>
+                        <input type="hidden" id="pvalid" value=""/>
                         <div class="form-group">
                             <label for="parameter" class="control-label">变量名:</label>
                             <input type="text" class="form-control" id="parameter" Disabled>
@@ -79,7 +76,7 @@
                 </div>
                 <!-- 模态框底部 -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-primary" id="savepara" onclick="save()">保存</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
                 </div>
             </div>
@@ -89,16 +86,17 @@
 
 {% block script_block %}
     <script>
-        function load() {
+        {% comment %}function load() {
             let chpid = q.value;
             {#console.log(chpid)#}
             $.ajax({
                 {#data: $(this).serialize(),#}
-                data:{'q':chpid},
+                data: {'q': chpid},
                 type: 'get',
                 url: 'demo',
                 success: function (response) {
                     console.log(response);
+                    alert("Success");
                     if (response['success']) {
                         alert("Successfully sent the URL to Django");
                     }
@@ -106,25 +104,53 @@
                     if (response['error']) {
                         {#$('#feedbackmessage').html("<div class='alert alert-danger'>" +#}
                         {#    response['error']['comment'] + "</div>");#}
-                         alert("Could not send URL to Django. Error: " + response['error']['comment']);
+                        alert("Could not send URL to Django. Error: " + response['error']['comment']);
                     }
                 },
                 error: function (request, status, error) {
                     console.log(request.responseText);
                 }
             })
-        }
+        }{% endcomment %}
 
+        //给窗口赋值
         function editpara(obj) {
-            {#var tr = $(obj).parent().parent();#}
             console.log(obj);
-            /* var chapter = tr.children("td#title").text();
-             var parameter = tr.children("td#body").text();
-             var unit = tr.children("td#body").text();
-             $('#chapter').val(chapter);
-             $('#parameter').val(parameter);
-             $('#unit').val(unit);*/
-            $('#exampleModal').modal('show')
+            $('#paraid').val(obj.id);
+            $('#pvalid').val(obj.testvalue__id);
+            $('#parameter').val(obj.display_name);
+            $('#unit').val(obj.unit);
+            $('#value').val(obj.testvalue__value);
         };
+
+        function save() {
+            let id = $('#paraid').val();
+            let v = $('#value').val();
+            let pvid = $('#pvalid').val();
+
+            $('#savepara').attr("disabled", true);
+            var csrf = $("input[name='csrfmiddlewaretoken']").val();
+            //url指向的是name
+            $.post("{% url 'para_save' %}", {
+                id: pvid,
+                parameter: id,
+                value: v,
+                csrfmiddlewaretoken: csrf
+            }, function (result) {
+                if (result.msg == 'success') {
+                    alert('Success!');
+                    window.location.href = "{% url 'demo' %}"
+                } else {
+                    $('#savepara').attr("disabled", false);
+                    {% comment %}$.globalMessenger().post({
+                        message: result.data,
+                        hideAfter: 6,
+                        type: result.msg,
+                        //showCloseButton: true
+                    });{% endcomment %}
+                    alert('Error!');
+                }
+            })
+        }
     </script>
 {% endblock %}

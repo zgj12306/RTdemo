@@ -26,9 +26,9 @@ class Template(models.Model):
 class Parameters(models.Model):
     name = models.CharField('参数名', max_length=50)
     display_name = models.CharField('参数中文名', max_length=100)
-    unit = models.CharField('单位', max_length=10, null=True, blank=True)
+    unit = models.CharField('单位', max_length=10, null=True, blank=True, default='')
     chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
-    temp_id = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
+    temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):
         return self.name
@@ -60,7 +60,7 @@ class Table(models.Model):
     order = models.IntegerField('排序', null=False)
     # row_count = models.IntegerField('初始行数', null=False, default=1)
     table_data = models.TextField('表格内容', null=True, blank=True)
-    temp_id = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
+    temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):
         return self.name
@@ -70,7 +70,7 @@ class Table(models.Model):
 class Column(models.Model):
     name = models.CharField('列名称', max_length=200, null=False)
     header = models.CharField('二层表头列名', max_length=200, null=True, blank=True)
-    table_id = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True)
     formula = models.CharField('公式', max_length=500, null=True, blank=True)
     h_col_span = models.IntegerField('表头列数', null=True, blank=True)
 
@@ -80,7 +80,7 @@ class Column(models.Model):
 
 # 按单元格的位置存值
 class TableCellValue(models.Model):
-    table_id = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True)
     coordinate = models.CharField('单元格坐标', max_length=10, null=False)
     value = models.CharField('值', max_length=100, null=False)
     proj_id = models.IntegerField('项目ID', null=True, blank=True)
