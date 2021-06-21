@@ -26,7 +26,7 @@ def para_in(request):
     q = None
     if 'q' in request.GET:
         q = request.GET['q']
-        # 显示章节名称。未完成
+        # 显示章节名称。未完成。搜索章节时会引起报错。
         chapter_name(q)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
