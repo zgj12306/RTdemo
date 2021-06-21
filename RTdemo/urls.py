@@ -22,4 +22,6 @@ urlpatterns = [
     path("", views.para_in, name='demo'),
     # path("parameter",views.para_in,name='demo_page'),
     path("para_save/", views.save_parameter, name='para_save'),
+    # 显示当前章节名
+    path("show_chapter/", views.chapter_name, name='show_chapter'),
 ]

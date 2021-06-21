@@ -9,6 +9,12 @@ from django.db.models import Q
 import os
 
 
+# 获取章节全名
+def chapter_name(cid):
+    data = Chapter.objects.get(id=cid)
+    return json_response(data)
+
+
 # 获取参数列表
 def para_in(request):
     # cursor = connection.cursor()
@@ -21,28 +27,33 @@ def para_in(request):
     q = None
     if 'q' in request.GET:
         q = request.GET['q']
+        # chapter_name(q)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
-                                                                "unit")
+                                                                "testvalue__id", "unit", "testvalue__proj_id")
     else:
         # para_list = Parameters.objects.all()
         p_val_list = Parameters.objects.values("id", "name", "display_name", "testvalue__value", "testvalue__id",
-                                               "unit")
+                                               "unit", "testvalue__proj_id")
     values = filter_none(p_val_list)
     context = {"list": values}
 
     return render(request, "demo_page.html", context)
 
 
+# 保存（更新、插入）参数值
 def save_parameter(request):
     if request.POST:
         # data = eval(data) #如果前端用了serializeStr的話需要
-        tv=TestValue.objects.get(id=request.POST['id'])
-        tv.value=request.POST['value']
-        # value = TestValue(id=request.POST['id'], parameter_id=request.POST['parameter'], value=request.POST['value'])
-        # value = ParameterValue(parameter=data.parameter, value=data.value)
-        tv.save()
-        # TestValue.objects.create(value)
-    # ParameterValue.objects.create(value)
+        if request.POST['id'] != "":
+            # 更新一个参数值
+            tv = TestValue.objects.get(id=request.POST['id'])
+            tv.value = request.POST['value']
+            tv.save()
+        else:
+            # 插入一个参数值
+            value = TestValue(parameter_id=request.POST['parameter'], value=request.POST['value'],
+                              proj_id=request.POST['pid'])
+            value.save()
     return json_response('保存成功！')
 
 

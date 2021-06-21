@@ -2,7 +2,6 @@
 {% block title %}<title>参数列表</title>{% endblock %}
 {% block body_block %}
     <div><h1>参数列表</h1></div>
-    <div><h2></h2></div>
     <form class="form-inline" url="{% url 'demo' %}" method="get">
         <div class="form-group input-group">
             <div class="input-group-addon">章节：</div>
@@ -12,6 +11,8 @@
             </div>
         </div>
     </form>
+    <div><h2 id="chp_name" value=""></h2>
+    </div>
     <div>
         {#        {{ list }}<br>#}
         <table class="table table-striped">
@@ -60,6 +61,7 @@
                         {% csrf_token %}
                         <input type="hidden" id="paraid" value=""/>
                         <input type="hidden" id="pvalid" value=""/>
+                        <input type="hidden" id="projid" value=""/>
                         <div class="form-group">
                             <label for="parameter" class="control-label">变量名:</label>
                             <input type="text" class="form-control" id="parameter" Disabled>
@@ -118,6 +120,7 @@
             console.log(obj);
             $('#paraid').val(obj.id);
             $('#pvalid').val(obj.testvalue__id);
+            $('#projid').val(obj.testvalue__proj_id);
             $('#parameter').val(obj.display_name);
             $('#unit').val(obj.unit);
             $('#value').val(obj.testvalue__value);
@@ -127,6 +130,11 @@
             let id = $('#paraid').val();
             let v = $('#value').val();
             let pvid = $('#pvalid').val();
+            //项目ID
+            let pid=$('#projid').val();
+            if (pid=="")
+                pid=1;
+            console.log(pid);
 
             $('#savepara').attr("disabled", true);
             var csrf = $("input[name='csrfmiddlewaretoken']").val();
@@ -135,7 +143,8 @@
                 id: pvid,
                 parameter: id,
                 value: v,
-                csrfmiddlewaretoken: csrf
+                csrfmiddlewaretoken: csrf,
+                pid:pid
             }, function (result) {
                 if (result.msg == 'success') {
                     alert('Success!');
