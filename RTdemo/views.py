@@ -1,8 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db import connection
-from .models import Chapter, TestValue, Parameters, Projects, Paragraph, Table, Column, Template, TestValue, \
-    ParameterValue
+from .models import Chapter, TestValue, Parameters, Projects, Paragraph, Table, Template, TestValue, ParameterValue
 from RTdemo.common.response import json_response, json_error, read_file
 from django.db import models
 from django.db.models import Q
@@ -27,7 +26,8 @@ def para_in(request):
     q = None
     if 'q' in request.GET:
         q = request.GET['q']
-        # chapter_name(q)
+        # 显示章节名称。未完成
+        chapter_name(q)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
     else:

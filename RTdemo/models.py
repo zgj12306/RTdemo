@@ -10,7 +10,12 @@ class Chapter(models.Model):
     parent_id = models.IntegerField('父级', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        s = ""
+        if self.layer == 1:
+            s = self.sort + '.' + self.name
+        elif self.layer == 2:
+            s = self.parent_id + '.' + self.sort + '.' + self.name
+        return s
 
 
 # 报告模板
@@ -57,7 +62,7 @@ class Paragraph(models.Model):
 # 表
 class Table(models.Model):
     name = models.CharField('表名称', max_length=200, null=False)
-    order = models.IntegerField('排序', null=False)
+    sort = models.IntegerField('排序', null=False)
     # row_count = models.IntegerField('初始行数', null=False, default=1)
     table_data = models.TextField('表格内容', null=True, blank=True)
     temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
@@ -93,7 +98,7 @@ class TableCellValue(models.Model):
 class TestValue(models.Model):
     parameter = models.ForeignKey(Parameters, on_delete=models.CASCADE, db_index=True)
     value = models.CharField('参数值', max_length=100, null=False)
-    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True,default=1)
+    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):
         return self.parameter
@@ -102,7 +107,7 @@ class TestValue(models.Model):
 class ParameterValue(models.Model):
     parameter = models.ForeignKey(Parameters, on_delete=models.CASCADE, db_index=True)
     value = models.CharField('参数值', max_length=100, null=False)
-    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True,default=1)
+    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):
         return self.parameter
