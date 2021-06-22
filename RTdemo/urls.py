@@ -24,4 +24,9 @@ urlpatterns = [
     path("para_save/", views.save_parameter, name='para_save'),
     # 显示当前章节名
     path("show_chapter/", views.chapter_name, name='show_chapter'),
+    # 按章节填写值
+    path("filing/", views.load_detail, name='filing'),
+    #主题示例页面
+    path("tooltip/", views.tooltip, name='tooltip'),
+
 ]

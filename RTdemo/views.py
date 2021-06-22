@@ -10,7 +10,7 @@ import os
 
 # 获取章节全名
 def chapter_name(cid):
-    data = Chapter.objects.get(id=cid)
+    data = Chapter.objects.filter(id=cid).values("parent_id", "sort", "name")
     return json_response(data)
 
 
@@ -55,6 +55,16 @@ def save_parameter(request):
                               proj_id=request.POST['pid'])
             value.save()
     return json_response('保存成功！')
+
+
+# 加载章节明细页面
+def load_detail(request):
+    return render(request, "filing.html")
+
+
+# 加载主题页面tooltip
+def tooltip(request):
+    return render(request, "tooltip.html")
 
 
 # 避免前端出現none相關的錯誤

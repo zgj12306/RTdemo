@@ -12,9 +12,9 @@ class Chapter(models.Model):
     def __str__(self):
         s = ""
         if self.layer == 1:
-            s = self.sort + '.' + self.name
+            s = self.sort + self.name
         elif self.layer == 2:
-            s = self.parent_id + '.' + self.sort + '.' + self.name
+            s = self.parent_id + self.sort + self.name
         return s
 
 
@@ -54,6 +54,7 @@ class Projects(models.Model):
 class Paragraph(models.Model):
     content = models.TextField('内容', null=True, blank=True)
     chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
+    temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):
         return self.chp
@@ -65,6 +66,7 @@ class Table(models.Model):
     sort = models.IntegerField('排序', null=False)
     # row_count = models.IntegerField('初始行数', null=False, default=1)
     table_data = models.TextField('表格内容', null=True, blank=True)
+    chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True, default=1)
     temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
 
     def __str__(self):

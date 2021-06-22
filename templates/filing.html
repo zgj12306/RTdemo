@@ -1,0 +1,196 @@
+{% extends 'common.html' %}
+{% block title %}<title>填写报告</title>{% endblock %}
+{% block body_block %}
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                {#                左上角#}
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <a href="index.html">
+                            <img class="img-fluid" src="/static/assets/images/logo.png" alt="Theme-Logo"/>
+                        </a>
+                    </div>
+                </div>
+                {#                标题栏#}
+                <div class="navbar-container container-fluid">
+                    <ul class="nav-right">
+                        <li class="user-profile header-notification">
+                            <a href="#!" class="waves-effect waves-light">
+                                <img src="/static/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                <span>John Doe</span>
+                                <i class="ti-angle-down"></i>
+                            </a>
+                            <ul class="show-notification profile-notification">
+                                {% comment %} <li class="waves-effect waves-light">
+                                    <a href="#!">
+                                        <i class="ti-settings"></i> Settings
+                                    </a>
+                                </li>{% endcomment %}
+                                <li class="waves-effect waves-light">
+                                    <a href="auth-normal-sign-in.html">
+                                        <i class="ti-layout-sidebar-left"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    {#                    左侧导航栏#}
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="">
+                                        <a href="index.html" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li class="pcoded-hasmenu active pcoded-trigger">
+                                        <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                            <span class="pcoded-mtext"
+                                                  data-i18n="nav.basic-components.main">Components</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                        <ul class="pcoded-submenu">
+                                            <li class=" ">
+                                                <a href="accordion.html" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Accordion</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
+                                            <li class=" ">
+                                                <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                    <span class="pcoded-mtext"
+                                                          data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
+                                                    <span class="pcoded-mcaret"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    {#                    页面内容#}
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Bootstrap tab card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>1.研究综述</h5>
+                                                        <span>章节名称</span>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <!-- Row start -->
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
+                                                                <!-- Nav tabs -->
+                                                                <ul class="nav nav-tabs  tabs" role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab"
+                                                                           href="#parameter1" role="tab">变量</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab"
+                                                                           href="#table1" role="tab">表</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content tabs card-block">
+                                                                    <div class="tab-pane active" id="parameter1"
+                                                                         role="tabpanel">
+                                                                        <p class="m-0">1. This is Photoshop's version of
+                                                                            Lorem IpThis is Photoshop's version of Lorem
+                                                                            Ipsum. Proin gravida nibh vel velit auctor
+                                                                            aliquet. Aenean sollicitudin, lorem quis
+                                                                            bibendum auctor, nisi elit consequat ipsum,
+                                                                            nec sagittis sem nibh id elit. Lorem ipsum
+                                                                            dolor sit amet, consectetuer adipiscing
+                                                                            elit. Aenean commodo ligula eget dolor.
+                                                                            Aenean mas Cum sociis natoque penatibus et
+                                                                            magnis dis.....</p>
+                                                                    </div>
+                                                                    <div class="tab-pane" id="table1" role="tabpanel">
+                                                                        <p class="m-0">2. Cras consequat in enim ut
+                                                                            efficitur. Nulla posuere elit quis auctor
+                                                                            interdum praesent sit amet nulla vel enim
+                                                                            amet. Donec convallis tellus neque, et
+                                                                            imperdiet felis amet.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-6"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {#                                        显示结果#}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Box tooltip card start -->
+                                                <div class="card o-visible">
+                                                    <div class="card-header">
+                                                        <h5>结果预览</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <p>Use class <code>tooltip-effect-1 tooltip-content4</code> to
+                                                            use this
+                                                            <span class="mytooltip tooltip-effect-1">
+                                                  <span class="tooltip-item2">Euclid</span>
+                                                  <span class="tooltip-content4 clearfix">
+                                                      <span class="tooltip-text2">
+                                                        <strong>Euclid</strong>, also known as Euclid of Alexandria, was a Greek mathematician, often referred to as the "Father of Geometry". He was active in Alexandria during the reign of Ptolemy I.
+                                                        <a href="#">Wikipedia</a>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                                            current effect. rogue laws of physics, star stuff harvesting
+                                                            star light, <span class="mytooltip tooltip-effect-2"><span
+                                                                    class="tooltip-item2">quasar</span><span
+                                                                    class="tooltip-content4 clearfix"><span
+                                                                    class="tooltip-text2"><strong>Quasars</strong> are believed to be powered by accretion of material into supermassive black holes in the nuclei of distant galaxies, making these luminous versions of the general... <a
+                                                                    href="#">Wikipedia</a></span></span>
+                                        </span> encyclopaedia galactica are creatures of the cosmos the only home we've
+                                                            ever known ship of the imagination prime number courage of
+                                                            our questions.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block script_block %}
+{% endblock %}
