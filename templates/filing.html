@@ -1,5 +1,9 @@
 {% extends 'common.html' %}
 {% block title %}<title>填写报告</title>{% endblock %}
+{% block css_block %}
+    <link rel="icon" type="image/png" href="https://c.cksource.com/a/1/logos/ckeditor5.png">
+    <link rel="stylesheet" type="text/css" href="/static/CKEditor/ckeditorstyles.css">
+{% endblock %}
 {% block body_block %}
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -50,7 +54,19 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
-                                <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">填写报告</div>
+                                <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">报告管理</div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-menu-alt"></i>
+                                                <b>D</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">报告列表</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">报告详情</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="">
                                         <a href="#" class="waves-effect waves-dark">
@@ -130,6 +146,27 @@
                                             </li>
                                         </ul>
                                 </ul>
+                                <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">配置</div>
+                                <ul class="pcoded-item pcoded-left-item">
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-settings"></i>
+                                                <b>D</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">变量配置</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-settings"></i>
+                                                <b>D</b></span>
+                                            <span class="pcoded-mtext" data-i18n="nav.dash.main">表配置</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </nav>
@@ -145,12 +182,13 @@
                                                 <!-- Bootstrap tab card start -->
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>1.研究综述</h5>
-                                                        <span>章节名称</span>
+                                                        <h4>1.研究综述</h4>
+                                                        {#                                                        <span>章节名称</span>#}
                                                     </div>
                                                     <div class="card-block">
                                                         <!-- Row start -->
-                                                        <div class="row">
+                                                        <div class="row col-xl-12">
+                                                            <!-- 页签面板 -->
                                                             <div class="col-xl-6">
                                                                 <!-- Nav tabs -->
                                                                 <ul class="nav nav-tabs  tabs" role="tablist">
@@ -187,7 +225,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-6"></div>
+                                                            <!-- 富文本编辑框 -->
+                                                            <div class="col-xl-6">
+                                                                {#                                                                <div id="editor">#}
+                                                                <div class="row">
+                                                                    <div class="document-editor__toolbar"></div>
+                                                                </div>
+                                                                <div class="row row-editor" style="border: 1px solid hsl(0, 0%, 77%);">
+                                                                    <div class="editor-container">
+                                                                        <div class="editor"></div>
+                                                                    </div>
+                                                                </div>
+                                                                {#                                                                </div>#}
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -200,7 +250,7 @@
                                                 <!-- Box tooltip card start -->
                                                 <div class="card o-visible">
                                                     <div class="card-header">
-                                                        <h5>结果预览</h5>
+                                                        <h4>结果预览</h4>
                                                     </div>
                                                     <div class="card-block">
                                                         <p>Use class <code>tooltip-effect-1 tooltip-content4</code> to
@@ -241,4 +291,59 @@
 {% endblock %}
 
 {% block script_block %}
+    <script src="/static/CKEditor/ckeditor.js"></script>
+    <script>
+        DecoupledDocumentEditor
+            .create(document.querySelector('.editor'), {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'fontSize',
+                        'fontFamily',
+                        {#'|',#}
+                        {#'fontColor',#}
+                        'fontBackgroundColor',
+                        {#'|',#}
+                        'bold',
+                        {#'underline',#}
+                        {#'strikethrough',#}
+                        '|',
+                        'alignment',
+                        '|',
+                        'numberedList',
+                        {#'bulletedList',#}
+                        '|',
+                        'outdent',
+                        'indent',
+                        '|',
+                        {#'link',#}
+                        {#'blockQuote',#}
+                        'imageUpload',
+                        {#'insertTable',#}
+                        {#'mediaEmbed',#}
+                        '|',
+                        'undo',
+                        'redo',
+                        'code',
+                        'htmlEmbed'
+                    ],
+                    shouldNotGroupWhenFull: true
+                },
+                language: 'zh-cn',
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+                // Set a custom container for the toolbar.
+                document.querySelector('.document-editor__toolbar').appendChild(editor.ui.view.toolbar.element);
+                document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: jqy0xmyycnos-nx2v6m9150m3');
+                console.error(error);
+            });
+    </script>
 {% endblock %}

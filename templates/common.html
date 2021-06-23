@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"#}
     {#          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">#}
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap/css/bootstrap.min.css">
     <!-- waves.css -->
     <link rel="stylesheet" href="/static/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
 
@@ -46,6 +46,8 @@
     <script src="/static/assets/js/vertical-layout.min.js "></script>
     <!-- Custom js -->
     <script type="text/javascript" src="/static/assets/js/script.js"></script>
+    {% block css_block %}
+    {% endblock %}
 </head>
 <body>
 {% block body_block %}
