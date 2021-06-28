@@ -11,7 +11,10 @@ import os
 # 获取章节全名
 def chapter_name(cid):
     data = Chapter.objects.filter(id=cid).values("parent_id", "sort", "name")
-    return json_response(data)
+    # print(type(data))
+    d_list = data[:]
+    # dlist = d_list[0]
+    return json_response(d_list)
 
 
 # 获取参数列表
@@ -26,8 +29,10 @@ def para_in(request):
     q = None
     if 'q' in request.GET:
         q = request.GET['q']
+        # print(q)
         # 显示章节名称。未完成。搜索章节时会引起报错。
-        # chapter_name(q)
+        dlist = chapter_name(q)
+        print(dlist)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
     else:
@@ -35,6 +40,7 @@ def para_in(request):
         p_val_list = Parameters.objects.values("id", "name", "display_name", "testvalue__value", "testvalue__id",
                                                "unit", "testvalue__proj_id")
     values = filter_none(p_val_list)
+    values = values.append(dlist)
     context = {"list": values}
 
     return render(request, "demo_page.html", context)
@@ -56,17 +62,18 @@ def save_parameter(request):
             value.save()
     return json_response('保存成功！')
 
-#保存章节参数
+
+# 保存章节参数
 # def save_parameters(request,chpid):
 
 
 # 加载章节明细页面
-def load_detail(request,chpid):
-    chpid=6
+def load_detail(request, chpid):
+    chpid = 6
     # 显示章节名称。未完成。搜索章节时会引起报错。
     # chapter_name(chpid)
     p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
-                                                            "testvalue__id", "unit", "testvalue__proj_id")
+                                                                "testvalue__id", "unit", "testvalue__proj_id")
     values = filter_none(p_val_list)
     context = {"list": values}
     return render(request, "filing.html", context)
