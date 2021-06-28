@@ -448,8 +448,8 @@ main .message h2 {
 
 .btn {
     cursor: pointer;
-    padding: 8px 16px;
-    font-size: 1rem;
+    padding: 5px 10px;
+    /*font-size: 1rem;*/
     user-select: none;
     border-radius: 4px;
     transition: color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out, opacity .2s ease-in-out;
@@ -520,3 +520,14 @@ footer {
 li>a{
     color: #495057;
 }
+:root {
+    --ck-sample-color-button-blue: #448aff;
+}
+:root .btn-success{
+    --ck-sample-color-button-blue: #11c15b;
+}
+/*
+.tab-footer {
+    margin-right: 10px;
+    float: right;
+}*/

@@ -27,7 +27,7 @@ def para_in(request):
     if 'q' in request.GET:
         q = request.GET['q']
         # 显示章节名称。未完成。搜索章节时会引起报错。
-        chapter_name(q)
+        # chapter_name(q)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
     else:
@@ -56,19 +56,20 @@ def save_parameter(request):
             value.save()
     return json_response('保存成功！')
 
+#保存章节参数
+# def save_parameters(request,chpid):
+
 
 # 加载章节明细页面
-def load_detail(request):
-    q = None
-    if 'q' in request.GET:
-        q = request.GET['q']
-        # 显示章节名称。未完成。搜索章节时会引起报错。
-        chapter_name(q)
-        p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
-                                                                "testvalue__id", "unit", "testvalue__proj_id")
-        values = filter_none(p_val_list)
-        context = {"list": values}
-    return render(request, "filing.html")
+def load_detail(request,chpid):
+    chpid=6
+    # 显示章节名称。未完成。搜索章节时会引起报错。
+    # chapter_name(chpid)
+    p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
+                                                            "testvalue__id", "unit", "testvalue__proj_id")
+    values = filter_none(p_val_list)
+    context = {"list": values}
+    return render(request, "filing.html", context)
 
 
 # 加载主题页面tooltip
