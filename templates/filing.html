@@ -201,11 +201,12 @@
                                                             <div class="col-lg-12 col-xl-6" style="padding-right: 5px">
                                                                 <!-- Nav tabs -->
                                                                 <ul class="nav nav-tabs tabs" role="tablist">
-                                                                    <li  class="nav-item"><a class="nav-link"
+                                                                    <li  class="nav-item active">
+                                                                        <a class="nav-link "
                                                                             href="#parameter1" role="tab" data-toggle="tab">变量</a>
                                                                     </li>
-                                                                    <li class="nav-item"><a href="#table1"
-                                                                                               role="tab" class="nav-link"
+                                                                    <li class="nav-item">
+                                                                        <a href="#table1" class="nav-link" role="tab"
                                                                                                data-toggle="tab">表</a>
                                                                     </li>
                                                                 </ul>
@@ -223,16 +224,39 @@
                                                                 <div class="tab-content tabs card-block">
                                                                     <div class="tab-pane active" id="parameter1"
                                                                          role="tabpanel">
-                                                                        <p class="m-0">1. This is Photoshop's version of
-                                                                            Lorem IpThis is Photoshop's version of Lorem
-                                                                            Ipsum. Proin gravida nibh vel velit auctor
-                                                                            aliquet. Aenean sollicitudin, lorem quis
-                                                                            bibendum auctor, nisi elit consequat ipsum,
-                                                                            nec sagittis sem nibh id elit. Lorem ipsum
-                                                                            dolor sit amet, consectetuer adipiscing
-                                                                            elit. Aenean commodo ligula eget dolor.
-                                                                            Aenean mas Cum sociis natoque penatibus et
-                                                                            magnis dis.....</p>
+                                                                        <div>
+                                                                            <table class="table table-striped">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    {#                <th></th>#}
+                                                                                    <th>变量名</th>
+                                                                                    <th>值</th>
+                                                                                    <th>计量单位</th>
+                                                                                    <th>操作</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                {% for item in list %}
+                                                                                    <tr>
+                                                                                        {#                    <td class="col-lg-2">{{ list }}</td>#}
+                                                                                        <td class="col-lg-2">{{ item.display_name }}</td>
+                                                                                        <td class="col-lg-2">{{ item.testvalue__value }}</td>
+                                                                                        <td class="col-lg-2">{{ item.unit }}</td>
+                                                                                        <td class="col-lg-2">
+                                                                                            <button type="button"
+                                                                                                    class="btn btn-primary"
+                                                                                                    data-toggle="modal"
+                                                                                                    data-target="#pModal"
+                                                                                                    onclick="editpara({{ item|safe }})">
+                                                                                                编辑
+                                                                                            </button>
+                                                                                            {#                        <button type="button" class="btn btn-danger">删除</button>#}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                {% endfor %}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="tab-pane" id="table1" role="tabpanel">
                                                                         <p class="m-0">2. Cras consequat in enim ut
@@ -249,8 +273,7 @@
                                                                 <div class="row col-lg-12" style="padding-right:0">
                                                                     <div class="document-editor__toolbar"></div>
                                                                 </div>
-                                                                <div class="row row-editor col-lg-12"
-                                                                     style="border: 1px solid hsl(0, 0%, 77%);">
+                                                                <div class="row row-editor col-lg-12">
                                                                     <div class="editor-container" style="border: 1px solid hsl(0, 0%, 77%);">
                                                                         <div class="editor"></div>
                                                                     </div>

@@ -11552,7 +11552,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     left: 15px; }
 
 .table td, .table th {
-  padding: 1.25rem 0.75rem; }
+  padding: 1rem 0.75rem; }
 
 .table thead th {
   border-bottom: 1px solid #d6dde1; }

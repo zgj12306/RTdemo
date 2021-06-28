@@ -504,6 +504,19 @@ footer {
     justify-content: center;
     overflow-y: auto;
     background-color: #f2f2f2;
-    padding:0 0 0 5px;
+    padding:0;
+    margin-left:0;
+    margin-right: 15px;
     /*border: 1px solid hsl(0, 0%, 77%);*/
+}
+.col-lg-12{
+    min-height: 1px;
+    width:auto;
+}
+.nav-item.active{
+    color:#495057;
+    border-color: #ddd #ddd #fff;
+}
+li>a{
+    color: #495057;
 }
