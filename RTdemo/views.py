@@ -16,7 +16,7 @@ def chapter_name(cid):
 
 
 # 获取参数列表
-def para_in(request):
+def para_in_new(request):
     # cursor = connection.cursor()
     # cursor.execute(
     #     "select p.para_name,p.display_name,p.unit,c.chapter_name from rtdemo_parameters p,rtdemo_Chapter c where v.chapter_id=c.id")
@@ -44,6 +44,28 @@ def para_in(request):
     return render(request, "new_demo_page.html", context)
 
 
+# 获取参数列表
+def para_in(request):
+    q = None
+    d_list = []
+    if 'q' in request.GET:
+        q = request.GET['q']
+        # 显示章节名称。未完成。搜索章节时会引起报错。
+        d_list = Chapter.objects.filter(id=q).values("layer", "parent_id", "sort", "name")
+        p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
+                                                                "testvalue__id", "unit", "testvalue__proj_id")
+    else:
+        # para_list = Parameters.objects.all()
+        p_val_list = Parameters.objects.values("id", "name", "display_name", "testvalue__value", "testvalue__id",
+                                               "unit", "testvalue__proj_id")
+    values = filter_none(p_val_list)
+    chapter = filter_none(d_list)
+    # values = values.append(d_list)
+    context = {"list": values, "chapter": chapter}
+    print(context)
+    return render(request, "demo_page_old.html", context)
+
+
 # 保存（更新、插入）参数值
 def save_parameter(request):
     if request.POST:
@@ -60,7 +82,8 @@ def save_parameter(request):
             value.save()
     return json_response('保存成功！')
 
-#保存章节参数
+
+# 保存章节参数
 # def save_parameters(request,chpid):
 
 

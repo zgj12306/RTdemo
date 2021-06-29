@@ -20,6 +20,7 @@ from RTdemo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.para_in, name='demo'),
+    path("demo/", views.para_in_new, name='demo_new'),
     path("<int:cid>/", views.para_in, name='demo'),
     # path("parameter",views.para_in,name='demo_page'),
     path("para_save/", views.save_parameter, name='para_save'),
