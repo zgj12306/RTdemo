@@ -10,12 +10,7 @@ class Chapter(models.Model):
     parent_id = models.IntegerField('父级', null=True, blank=True)
 
     def __str__(self):
-        s = ""
-        if self.layer == 1:
-            s = self.sort + self.name
-        elif self.layer == 2:
-            s = self.parent_id + self.sort + self.name
-        return s
+        return self.sort + self.name + self.layer + self.parent_id
 
 
 # 报告模板

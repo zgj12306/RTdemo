@@ -569,7 +569,7 @@ b, strong {
       Modal css start
 ==========================  **/
 .modal {
-    z-index: 99999999999;
+    z-index: 999;
 }
 
 .bd-example .modal {

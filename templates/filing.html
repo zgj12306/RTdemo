@@ -69,7 +69,7 @@
                                 <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">报告详情</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="">
-                                        <a href="#" class="waves-effect waves-dark">
+                                        <a href="/filing/5/" class="waves-effect waves-dark">
                                             <span class="pcoded-micon">
                                                 <i class="ti-agenda"></i>
                                                 <b>D</b></span>
@@ -192,8 +192,7 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <input type="hidden" id="chpid" value=""/>
-                                                        <h4>1.研究综述</h4>
-                                                        {#                                                        <span>章节名称</span>#}
+                                                        <h4>{{ chapter.0.sort }}.{{ chapter.0.name }}</h4>
                                                     </div>
                                                     <div class="card-block">
                                                         <!-- Row start -->
@@ -205,7 +204,7 @@
                                                                     <li class="nav-item active">
                                                                         <a class="nav-link "
                                                                            href="#parameter1" role="tab"
-                                                                           data-toggle="tab">变量</a>
+                                                                           data-toggle="tab">邮件合并</a>
                                                                     </li>
                                                                     <li class="nav-item">
                                                                         <a href="#table1" class="nav-link" role="tab"
@@ -227,12 +226,11 @@
                                                                     <div class="tab-pane active" id="parameter1"
                                                                          role="tabpanel">
                                                                         <div>
-                                                                            <table class="table table-striped"
-                                                                                   style="font-size: 13px;">
+                                                                            <table class="table table-striped" style="font-size: 13px;">
                                                                                 <thead>
                                                                                 <tr>
                                                                                     {#                <th></th>#}
-                                                                                    <th>变量名</th>
+                                                                                    <th>条目</th>
                                                                                     <th>值</th>
                                                                                     <th>计量单位</th>
                                                                                     <th>操作</th>
@@ -260,7 +258,7 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
-                                                                       {% comment %} <div class="tab-footer" >
+                                                                        {% comment %} <div class="tab-footer" >
                                                                             <button id="savep" class="btn btn-success">保存</button>
                                                                         </div>{% endcomment %}
                                                                     </div>
@@ -341,12 +339,97 @@
             </div>
         </div>
     </div>
+    <!-- 编辑参数模态框 -->
+    <div class="modal fade" id="pModal" tabindex="-1" role="dialog" aria-labelledby="pModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="pModalLabel">编辑邮件合并条目</h4>
+                </div>
+                <!-- 模态框主体 -->
+                <div class="modal-body">
+                    <form role="form" method="post" style="margin-left: 10px; margin-right: 10px">
+                        {% csrf_token %}
+                        <input type="hidden" id="paraid" value=""/>
+                        <input type="hidden" id="pvalid" value=""/>
+                        <input type="hidden" id="projid" value=""/>
+                        <div class="form-group">
+                            <label for="parameter" class="control-label">条目:</label>
+                            <input type="text" class="form-control" id="parameter" Disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="value" class="control-label">值:</label>
+                            <input type="text" class="form-control" id="value">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit" class="control-label">计量单位:</label>
+                            <input type="text" class="form-control" id="unit" Disabled>
+                        </div>
+                    </form>
+                </div>
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="savepara" onclick="save()">保存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block script_block %}
     <script src="/static/CKEditor/ckeditor.js"></script>
     <script>
+        //给编辑窗口赋值
+        function editpara(obj) {
+            console.log(obj);
+            $('#paraid').val(obj.id);
+            $('#pvalid').val(obj.testvalue__id);
+            $('#projid').val(obj.testvalue__proj_id);
+            $('#parameter').val(obj.display_name);
+            $('#unit').val(obj.unit);
+            $('#value').val(obj.testvalue__value);
+        };
+        //保存参数值
+        function save() {
+            let id = $('#paraid').val();
+            let v = $('#value').val();
+            let pvid = $('#pvalid').val();
+            //项目ID
+            let pid = $('#projid').val();
+            if (pid == "")
+                pid = 1;
+            console.log(pid);
+
+            $('#savepara').attr("disabled", true);
+            var csrf = $("input[name='csrfmiddlewaretoken']").val();
+            //url指向的是name
+            $.post("{% url 'para_save' %}", {
+                id: pvid,
+                parameter: id,
+                value: v,
+                csrfmiddlewaretoken: csrf,
+                pid: pid
+            }, function (result) {
+                if (result.msg == 'success') {
+                    alert('Success!');
+                    window.location.href = "{% url 'demo' %}"
+                } else {
+                    $('#savepara').attr("disabled", false);
+                    {% comment %}$.globalMessenger().post({
+                        message: result.data,
+                        hideAfter: 6,
+                        type: result.msg,
+                        //showCloseButton: true
+                    });{% endcomment %}
+                    alert('Error!');
+                }
+            })
+        }
+
+        //CKEditor初始化
         DecoupledDocumentEditor
             .create(document.querySelector('.editor'), {
                 toolbar: {
