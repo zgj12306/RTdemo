@@ -60,8 +60,7 @@ def save_parameter(request):
             value.save()
     return json_response('保存成功！')
 
-
-# 保存章节参数
+#保存章节参数
 # def save_parameters(request,chpid):
 
 

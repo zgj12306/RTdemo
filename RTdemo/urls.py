@@ -20,6 +20,7 @@ from RTdemo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.para_in, name='demo'),
+    path("<int:cid>/", views.para_in, name='demo'),
     # path("parameter",views.para_in,name='demo_page'),
     path("para_save/", views.save_parameter, name='para_save'),
     # 显示当前章节名
@@ -28,5 +29,4 @@ urlpatterns = [
     path("filing/<int:chpid>/", views.load_detail, name='filing'),
     #主题示例页面
     path("tooltip/", views.tooltip, name='tooltip'),
-
 ]
