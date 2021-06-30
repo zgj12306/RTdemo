@@ -2,21 +2,9 @@
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="keywords"
-          content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive">
-    <title>参数列表</title>
-     <!-- Favicon icon -->
-   {% comment %} <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">{% endcomment %}
+    <title>TestModel</title>
     <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-{#    <link rel="stylesheet" href="/static/assets/pages/waves/css/waves.min.css" type="text/css" media="all">#}
-
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-{#    <script type="text/javascript" src="/static/assets/js/jquery-ui/jquery-ui.min.js "></script>#}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
             integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
             crossorigin="anonymous"></script>
@@ -24,7 +12,7 @@
 <body>
 <div class="container">
     <div><h1>参数列表</h1></div>
-    <form class="form-inline" url="{% url 'demo_new' %}" method="get">
+   {% comment %} <form class="form-inline" url="{% url 'demo' %}" method="get">
         <div class="form-group input-group">
             <div class="input-group-addon">章节：</div>
             <input type="text" class="form-control" name="q" id="q" placeholder="chapter_id">
@@ -32,12 +20,13 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </div>
         </div>
-    </form>
-    <div><h2 id="chp_name" value="">{{ chapter }}</h2>
-    </div>
+    </form>{% endcomment %}
+  {% comment %}  <div><h2 id="chp_name" value="">{{ chapter }}</h2>
+    </div>{% endcomment %}
     <div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#pModal">打开</button>
         {#        {{ list }}<br>#}
-        <table class="table table-striped">
+       {% comment %} <table class="table table-striped">
             <thead>
             <tr>
                 {#                <th></th>#}
@@ -65,7 +54,7 @@
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
+        </table>{% endcomment %}
     </div>
 
     <!-- 编辑参数模态框 -->
@@ -81,8 +70,9 @@
                 <!-- 模态框主体 -->
                 <div class="modal-body">
                     <form role="form" method="post" style="margin-left: 10px; margin-right: 10px">
-                        {% csrf_token %}
-                        <input type="hidden" id="paraid" value=""/>
+                        模态框内容
+{#                        {% csrf_token %}#}
+                     {% comment %}   <input type="hidden" id="paraid" value=""/>
                         <input type="hidden" id="pvalid" value=""/>
                         <input type="hidden" id="projid" value=""/>
                         <div class="form-group">
@@ -96,7 +86,7 @@
                         <div class="form-group">
                             <label for="unit" class="control-label">计量单位:</label>
                             <input type="text" class="form-control" id="unit" Disabled>
-                        </div>
+                        </div>{% endcomment %}
                     </form>
                 </div>
                 <!-- 模态框底部 -->
@@ -108,81 +98,7 @@
         </div>
     </div>
 </div>
+
 </body>
 
-<script>
-    {% comment %}function load() {
-        let chpid = q.value;
-        {#console.log(chpid)#}
-        $.ajax({
-            {#data: $(this).serialize(),#}
-            data: {'q': chpid},
-            type: 'get',
-            url: 'demo',
-            success: function (response) {
-                console.log(response);
-                alert("Success");
-                if (response['success']) {
-                    alert("Successfully sent the URL to Django");
-                }
-                ;
-                if (response['error']) {
-                    {#$('#feedbackmessage').html("<div class='alert alert-danger'>" +#}
-                    {#    response['error']['comment'] + "</div>");#}
-                    alert("Could not send URL to Django. Error: " + response['error']['comment']);
-                }
-            },
-            error: function (request, status, error) {
-                console.log(request.responseText);
-            }
-        })
-    }{% endcomment %}
-
-    //给窗口赋值
-    function editpara(obj) {
-        console.log(obj);
-        $('#paraid').val(obj.id);
-        $('#pvalid').val(obj.testvalue__id);
-        $('#projid').val(obj.testvalue__proj_id);
-        $('#parameter').val(obj.display_name);
-        $('#unit').val(obj.unit);
-        $('#value').val(obj.testvalue__value);
-    };
-
-    function save() {
-        let id = $('#paraid').val();
-        let v = $('#value').val();
-        let pvid = $('#pvalid').val();
-        //项目ID
-        let pid = $('#projid').val();
-        if (pid == "")
-            pid = 1;
-        console.log(pid);
-
-        $('#savepara').attr("disabled", true);
-        var csrf = $("input[name='csrfmiddlewaretoken']").val();
-        //url指向的是name
-        $.post("{% url 'para_save' %}", {
-            id: pvid,
-            parameter: id,
-            value: v,
-            csrfmiddlewaretoken: csrf,
-            pid: pid
-        }, function (result) {
-            if (result.msg == 'success') {
-                alert('Success!');
-                window.location.href = "{% url 'demo_new' %}"
-            } else {
-                $('#savepara').attr("disabled", false);
-                {% comment %}$.globalMessenger().post({
-                    message: result.data,
-                    hideAfter: 6,
-                    type: result.msg,
-                    //showCloseButton: true
-                });{% endcomment %}
-                alert('Error!');
-            }
-        })
-    }
-</script>
 </html>

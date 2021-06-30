@@ -28,6 +28,7 @@ urlpatterns = [
     path("show_chapter/", views.chapter_name, name='show_chapter'),
     # 按章节填写值
     path("filing/<int:chpid>/", views.load_detail, name='filing'),
+path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
     #主题示例页面
     path("tooltip/", views.tooltip, name='tooltip'),
 ]

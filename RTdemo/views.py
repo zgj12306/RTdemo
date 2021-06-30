@@ -110,6 +110,28 @@ def load_detail(request, chpid):
     return render(request, "filing.html", context)
 
 
+def test_load_detail(request, chpid):
+    # 章节名称信息。
+    c_detail = Chapter.objects.filter(id=chpid).values("layer", "parent_id", "sort", "name")
+    p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
+                                                                "testvalue__id", "unit", "testvalue__proj_id")
+    values = filter_none(p_val_list)
+    c_value = filter_none(c_detail)
+    title = []
+    if c_value[0]['layer'] == 1:
+        # 只有一级
+        title = c_value
+    elif c_value[0]['layer'] == 2:
+        # 有两级，再向上获取一级的信息
+        # 此分支未测试
+        p_detail = Chapter.objects.filter(id=c_value[0].parent_id).values("layer", "parent_id", "sort", "name")
+        p_value = filter_none(p_detail)
+        title = p_value
+        title.append(c_value)
+    context = {"list": values, "chapter": title}
+    return render(request, "testfiling.html", context)
+
+
 # 加载主题页面tooltip
 def tooltip(request):
     return render(request, "tooltip.html")

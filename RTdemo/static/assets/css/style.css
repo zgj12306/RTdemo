@@ -89,7 +89,7 @@ b, strong {
       Main-body css start
 ==========================  **/
 .main-body .page-wrapper {
-    padding: 0.5rem;
+    padding: 0;
     -webkit-transition: all ease-in 0.3s;
     transition: all ease-in 0.3s;
 }
@@ -569,7 +569,7 @@ b, strong {
       Modal css start
 ==========================  **/
 .modal {
-    z-index: 999;
+    z-index: 1999;
 }
 
 .bd-example .modal {
@@ -8678,7 +8678,7 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar {
-    z-index: 1027;
+    z-index: 927;
     height: calc(100% - 56px);
 }
 
@@ -23251,4 +23251,16 @@ body.dark .page-header:before {
 .tab-footer {
     margin-right: 10px;
     float: right;
+}
+/*模态框遮罩层*/
+.modal-backdrop{
+    z-index: 1099;
+}
+/*不用了*/
+.modal-header-fluid{
+    padding:15px;
+    border-bottom:1px solid #e9ecef;
+}
+.card{
+    background:white;
 }

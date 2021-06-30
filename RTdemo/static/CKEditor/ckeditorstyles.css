@@ -511,7 +511,9 @@ footer {
 }
 .col-lg-12{
     min-height: 1px;
-    width:auto;
+    width:100%;
+    /*padding-left: 5px;
+    padding-right: 5px;*/
 }
 .nav-item.active{
     color:#495057;
@@ -525,6 +527,14 @@ li>a{
 }
 :root .btn-success{
     --ck-sample-color-button-blue: #11c15b;
+}
+.row.col-lg-12{
+    padding-right: 0;
+    padding-left: 0;
+}
+.row{
+    margin-right: 0;
+    margin-left: 0;
 }
 /*
 .tab-footer {

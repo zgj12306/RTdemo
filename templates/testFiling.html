@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="keywords"
+          content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive">
+    <title>testFiling</title>
+    <!-- Favicon icon -->
+    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- waves.css -->
+    <link rel="stylesheet" href="/static/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="/static/assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="/static/assets/icon/icofont/css/icofont.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="/static/assets/icon/font-awesome/css/font-awesome.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/jquery.mCustomScrollbar.css">
+
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="/static/assets/js/popper.js/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+    <!-- waves js -->
+    <script src="/static/assets/pages/waves/js/waves.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="/static/assets/js/jquery-slimscroll/jquery.slimscroll.js "></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="/static/assets/js/SmoothScroll.js"></script>
+    <script src="/static/assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script src="/static/assets/js/pcoded.min.js"></script>
+    <script src="/static/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/static/assets/js/vertical-layout.min.js "></script>
+    <!-- Custom js -->
+    <script type="text/javascript" src="/static/assets/js/script.js"></script>
+
+    <link rel="icon" type="image/png" href="https://c.cksource.com/a/1/logos/ckeditor5.png">
+    <link rel="stylesheet" type="text/css" href="/static/CKEditor/ckeditorstyles.css">
+</head>
+<body>
+
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header">
+            {#                左上角#}
+            <div class="navbar-wrapper">
+                <div class="navbar-logo">
+                    <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                        <i class="ti-split-h"></i>
+                    </a>
+                    <a href="index.html">
+                        <img class="img-fluid" src="/static/assets/images/logo.png" alt="Theme-Logo"/>
+                    </a>
+                </div>
+
+                {#                标题栏#}
+                <div class="navbar-container container-fluid">
+                    <ul class="nav-right">
+                        <li class="user-profile header-notification">
+                            <a href="#!" class="waves-effect waves-light">
+                                <img src="/static/assets/images/avatar-4.jpg" class="img-radius"
+                                     alt="User-Profile-Image">
+                                <span>John Doe</span>
+                                <i class="ti-angle-down"></i>
+                            </a>
+                            <ul class="show-notification profile-notification">
+                                {% comment %} <li class="waves-effect waves-light">
+                                    <a href="#!">
+                                        <i class="ti-settings"></i> Settings
+                                    </a>
+                                </li>{% endcomment %}
+                                <li class="waves-effect waves-light">
+                                    <a href="auth-normal-sign-in.html">
+                                        <i class="ti-layout-sidebar-left"></i> 退出
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                {#                    左侧导航栏#}
+                <nav class="pcoded-navbar">
+                    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                    <div class="pcoded-inner-navbar main-menu">
+                        <div class="">
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">报告管理</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="/" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-menu-alt"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">报告列表</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">报告详情</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="/filing/5/" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-agenda"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">首页</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="/filing/6/" class="waves-effect waves-dark active">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-agenda"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">研究综述</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="/tooltip/" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-agenda"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">主要仪器、试药和对照品信息</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-agenda"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">分析方法</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-agenda"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">方法学验证</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu pcoded-trigger">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-agenda"></i></span>
+                                        <span class="pcoded-mtext"
+                                              data-i18n="nav.basic-components.main">验证结果</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="#" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                      data-i18n="nav.basic-components.alert">系统适用性</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="#" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                      data-i18n="nav.basic-components.breadcrumbs">专属性</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="#" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                      data-i18n="nav.basic-components.breadcrumbs">线性及范围</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </ul>
+                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">配置</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-settings"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">变量配置</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-settings"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">表配置</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                            <span class="pcoded-micon">
+                                                <i class="ti-settings"></i>
+                                                <b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">模板定义</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                {#                    页面内容#}
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- Page body start -->
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12" style="padding-left: 5px;padding-right: 5px">
+                                            <!-- Bootstrap tab card start -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <input type="hidden" id="chpid" value=""/>
+                                                    <h4>{{ chapter.0.sort }}.{{ chapter.0.name }}</h4>
+                                                </div>
+                                                <div class="card-block">
+                                                    <!-- Row start -->
+                                                    <div class="row ">
+                                                        <!-- 页签面板 -->
+                                                        <div class="col-lg-12 col-xl-6" style="padding-right: 5px">
+                                                            <!-- Nav tabs -->
+                                                            <ul class="nav nav-tabs tabs" role="tablist">
+                                                                <li class="nav-item active">
+                                                                    <a class="nav-link "
+                                                                       href="#parameter1" role="tab"
+                                                                       data-toggle="tab">邮件合并</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="#table1" class="nav-link" role="tab"
+                                                                       data-toggle="tab">表</a>
+                                                                </li>
+                                                            </ul>
+                                                            {% comment %} <ul class="nav nav-tabs tabs" role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab"
+                                                                           href="#parameter1" role="tab">变量</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab"
+                                                                           href="#table1" role="tab">表</a>
+                                                                    </li>
+                                                                </ul>{% endcomment %}
+                                                            <!-- Tab panes -->
+                                                            <div class="tab-content tabs card-block">
+                                                                <div class="tab-pane active" id="parameter1"
+                                                                     role="tabpanel">
+                                                                    <div>
+                                                                        <table class="table table-striped"
+                                                                               style="font-size: 13px;">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                {#                <th></th>#}
+                                                                                <th>条目</th>
+                                                                                <th>值</th>
+                                                                                <th>计量单位</th>
+                                                                                <th>操作</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            {% for item in list %}
+                                                                                <tr>
+                                                                                    {#                    <td class="col-lg-2">{{ list }}</td>#}
+                                                                                    <td class="col-lg-2">{{ item.display_name }}</td>
+                                                                                    <td class="col-lg-2">{{ item.testvalue__value }}</td>
+                                                                                    <td class="col-lg-2">{{ item.unit }}</td>
+                                                                                    <td class="col-lg-2">
+                                                                                        <button type="button"
+                                                                                                class="btn btn-primary"
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#pModal"
+                                                                                                onclick="editpara({{ item|safe }})">
+                                                                                            编辑
+                                                                                        </button>
+                                                                                        {#                        <button type="button" class="btn btn-danger">删除</button>#}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    {% comment %} <div class="tab-footer" >
+                                                                            <button id="savep" class="btn btn-success">保存</button>
+                                                                        </div>{% endcomment %}
+                                                                </div>
+                                                                <div class="tab-pane" id="table1" role="tabpanel">
+                                                                    <p class="m-0">2. Cras consequat in enim ut
+                                                                        efficitur. Nulla posuere elit quis auctor
+                                                                        interdum praesent sit amet nulla vel enim
+                                                                        amet. Donec convallis tellus neque, et
+                                                                        imperdiet felis amet.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- 富文本编辑框 -->
+                                                        <div class="col-lg-12 col-xl-6">
+                                                            {#                                                                <div id="editor">#}
+                                                            <div class="row col-lg-12" style="padding-right:0">
+                                                                <div class="document-editor__toolbar"></div>
+                                                            </div>
+                                                            <div class="row row-editor col-lg-12">
+                                                                <div class="editor-container"
+                                                                     style="border: 1px solid hsl(0, 0%, 77%);">
+                                                                    <div class="editor"></div>
+                                                                </div>
+                                                            </div>
+                                                            {#                                                                </div>#}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#                                        显示结果#}
+                                    <div class="row">
+                                        <div class="col-sm-12" style="padding-left: 5px;padding-right: 5px">
+                                            <!-- Box tooltip card start -->
+                                            <div class="card o-visible">
+                                                <div class="card-header">
+                                                    <div class="container-fluid">
+                                                        <h4 style="float: left">结果预览</h4>
+                                                        <div style="float: right">
+                                                            <button class="btn btn-primary">开始预览</button>
+                                                            <button class="btn btn-success" id="submit">保存</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-block">
+                                                    <p>Use class <code>tooltip-effect-1 tooltip-content4</code> to
+                                                        use this
+                                                        <span class="mytooltip tooltip-effect-1">
+                                                  <span class="tooltip-item2">Euclid</span>
+                                                  <span class="tooltip-content4 clearfix">
+                                                      <span class="tooltip-text2">
+                                                        <strong>Euclid</strong>, also known as Euclid of Alexandria, was a Greek mathematician, often referred to as the "Father of Geometry". He was active in Alexandria during the reign of Ptolemy I.
+                                                        <a href="#">Wikipedia</a>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                                        current effect. rogue laws of physics, star stuff harvesting
+                                                        star light, <span class="mytooltip tooltip-effect-2"><span
+                                                                class="tooltip-item2">quasar</span><span
+                                                                class="tooltip-content4 clearfix"><span
+                                                                class="tooltip-text2"><strong>Quasars</strong> are believed to be powered by accretion of material into supermassive black holes in the nuclei of distant galaxies, making these luminous versions of the general... <a
+                                                                href="#">Wikipedia</a></span></span>
+                                        </span> encyclopaedia galactica are creatures of the cosmos the only home we've
+                                                        ever known ship of the imagination prime number courage of
+                                                        our questions.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑参数模态框 -->
+<div class="modal fade" id="pModal" tabindex="-1" role="dialog" aria-labelledby="pModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 180px">
+        <div class="modal-content">
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="pModalLabel">编辑邮件合并条目</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <form role="form" method="post" style="margin-left: 10px; margin-right: 10px">
+                    {% csrf_token %}
+                    <input type="hidden" id="paraid" value=""/>
+                    <input type="hidden" id="pvalid" value=""/>
+                    <input type="hidden" id="projid" value=""/>
+                    <div class="form-group">
+                        <label for="parameter" class="control-label">条目:</label>
+                        <input type="text" class="form-control" id="parameter" Disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="value" class="control-label">值:</label>
+                        <input type="text" class="form-control" id="value">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit" class="control-label">计量单位:</label>
+                        <input type="text" class="form-control" id="unit" Disabled>
+                    </div>
+                </form>
+            </div>
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="savepara" onclick="save()">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="/static/CKEditor/ckeditor.js"></script>
+<script>
+    //给编辑窗口赋值
+    function editpara(obj) {
+        console.log(obj);
+        $('#paraid').val(obj.id);
+        $('#pvalid').val(obj.testvalue__id);
+        $('#projid').val(obj.testvalue__proj_id);
+        $('#parameter').val(obj.display_name);
+        $('#unit').val(obj.unit);
+        $('#value').val(obj.testvalue__value);
+    };
+
+    //保存参数值
+    function save() {
+        let id = $('#paraid').val();
+        let v = $('#value').val();
+        let pvid = $('#pvalid').val();
+        //项目ID
+        let pid = $('#projid').val();
+        if (pid == "")
+            pid = 1;
+        console.log(pid);
+
+        $('#savepara').attr("disabled", true);
+        var csrf = $("input[name='csrfmiddlewaretoken']").val();
+        //url指向的是name
+        $.post("{% url 'para_save' %}", {
+            id: pvid,
+            parameter: id,
+            value: v,
+            csrfmiddlewaretoken: csrf,
+            pid: pid
+        }, function (result) {
+            if (result.msg == 'success') {
+                alert('Success!');
+                window.location.href = "{% url 'demo' %}"
+            } else {
+                $('#savepara').attr("disabled", false);
+                {% comment %}$.globalMessenger().post({
+                    message: result.data,
+                    hideAfter: 6,
+                    type: result.msg,
+                    //showCloseButton: true
+                });{% endcomment %}
+                alert('Error!');
+            }
+        })
+    }
+
+    //CKEditor初始化
+    DecoupledDocumentEditor
+        .create(document.querySelector('.editor'), {
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'fontSize',
+                    'fontFamily',
+                    {#'|',#}
+                    {#'fontColor',#}
+                    'fontBackgroundColor',
+                    {#'|',#}
+                    'bold',
+                    {#'underline',#}
+                    {#'strikethrough',#}
+                    '|',
+                    'alignment',
+                    '|',
+                    'numberedList',
+                    {#'bulletedList',#}
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    {#'link',#}
+                    {#'blockQuote',#}
+                    'imageUpload',
+                    {#'insertTable',#}
+                    {#'mediaEmbed',#}
+                    '|',
+                    'undo',
+                    'redo',
+                    'code',
+                    'htmlEmbed'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            language: 'zh-cn',
+            licenseKey: '',
+        })
+        .then(editor => {
+            window.editor = editor;
+            // Set a custom container for the toolbar.
+            document.querySelector('.document-editor__toolbar').appendChild(editor.ui.view.toolbar.element);
+            document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
+        })
+        .catch(error => {
+            console.error('Oops, something went wrong!');
+            console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+            console.warn('Build id: jqy0xmyycnos-nx2v6m9150m3');
+            console.error(error);
+        });
+
+    //提交段落数据
+    document.querySelector('#submit').addEventListener('click', () => {
+        const editorData = window.editor.getData();
+        console.log(editorData);
+    });
+</script>
+</html>
