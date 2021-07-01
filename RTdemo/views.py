@@ -8,14 +8,14 @@ from django.db.models import Q
 import os
 
 
-# 获取章节全名，返回有问题，不用
+# 获取章节全名，返回有问题（不用）
 def chapter_name(cid):
     data = Chapter.objects.filter(id=cid).values("layer", "parent_id", "sort", "name")
     d_list = data[:]
     return json_response(d_list)
 
 
-# 获取参数列表
+# 获取参数列表（测试用）
 def para_in_new(request):
     # cursor = connection.cursor()
     # cursor.execute(
@@ -66,7 +66,7 @@ def para_in(request):
     return render(request, "demo_page_old.html", context)
 
 
-# 保存（更新、插入）参数值
+# 保存（更新、插入）单个参数值
 def save_parameter(request):
     if request.POST:
         # data = eval(data) #如果前端用了serializeStr的話需要
@@ -83,17 +83,30 @@ def save_parameter(request):
     return json_response('保存成功！')
 
 
-# 保存章节参数
-# def save_parameters(request,chpid):
-
+# ？保存一个章节的全部内容？
+def save_paragraph(request,chpid):
+    if request.POST:
+        if request.POST['chpid'] != "":
+            pg=Paragraph.objects.get(chp_id=request.POST['chpid'])
+            # ？判断是否已存在
+            #如果已有数据，更新一个值
+            pg.content=request.POST.data
+            pg.save()
+        else:
+            return json_response('没有提供章节id！')
+    return json_response('本章节保存成功！')
 
 # 加载章节明细页面
 def load_detail(request, chpid):
-    # 章节名称信息。
+    # 获取章节名称信息
     c_detail = Chapter.objects.filter(id=chpid).values("layer", "parent_id", "sort", "name")
+    # 获取章节参数列表
     p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
+    # 获取章节段落文本
+    paragraph=Paragraph.objects.filter(chp_id=chpid).values("id","content","temp_id")
     values = filter_none(p_val_list)
+    # 处理章节名称层次
     c_value = filter_none(c_detail)
     title = []
     if c_value[0]['layer'] == 1:
@@ -109,7 +122,7 @@ def load_detail(request, chpid):
     context = {"list": values, "chapter": title}
     return render(request, "filing.html", context)
 
-
+# 测试章节明细页面用
 def test_load_detail(request, chpid):
     # 章节名称信息。
     c_detail = Chapter.objects.filter(id=chpid).values("layer", "parent_id", "sort", "name")

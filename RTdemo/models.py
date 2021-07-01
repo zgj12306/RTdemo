@@ -50,6 +50,7 @@ class Paragraph(models.Model):
     content = models.TextField('内容', null=True, blank=True)
     chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True)
     temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
+    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, blank=True, null=True)
 
     def __str__(self):
         return self.chp

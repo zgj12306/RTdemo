@@ -3,6 +3,8 @@
 {% block css_block %}
     <link rel="icon" type="image/png" href="https://c.cksource.com/a/1/logos/ckeditor5.png">
     <link rel="stylesheet" type="text/css" href="/static/CKEditor/ckeditorstyles.css">
+    {#    <link rel="stylesheet" href="snippet.css" type="text/css">#}
+    {#    <script src="snippet.js">#}
 {% endblock %}
 {% block body_block %}
     <div id="pcoded" class="pcoded">
@@ -216,7 +218,8 @@
                                                                     <div class="tab-pane active" id="parameter1"
                                                                          role="tabpanel">
                                                                         <div>
-                                                                            <table class="table table-striped" style="font-size: 13px;">
+                                                                            <table class="table table-striped"
+                                                                                   style="font-size: 13px;">
                                                                                 <thead>
                                                                                 <tr>
                                                                                     {#                <th></th>#}
@@ -270,7 +273,7 @@
                                                                 <div class="row row-editor col-lg-12">
                                                                     <div class="editor-container"
                                                                          style="border: 1px solid hsl(0, 0%, 77%);">
-                                                                        <div class="editor"></div>
+                                                                        <div class="editor" id="editor"></div>
                                                                     </div>
                                                                 </div>
                                                                 {#                                                                </div>#}
@@ -289,33 +292,14 @@
                                                         <div class="container-fluid">
                                                             <h4 style="float: left">结果预览</h4>
                                                             <div style="float: right">
-                                                                <button class="btn btn-primary">开始预览</button>
+                                                                <button class="btn btn-primary" id="preview">开始预览
+                                                                </button>
                                                                 <button class="btn btn-success" id="submit">保存</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-block">
-                                                        <p>Use class <code>tooltip-effect-1 tooltip-content4</code> to
-                                                            use this
-                                                            <span class="mytooltip tooltip-effect-1">
-                                                  <span class="tooltip-item2">Euclid</span>
-                                                  <span class="tooltip-content4 clearfix">
-                                                      <span class="tooltip-text2">
-                                                        <strong>Euclid</strong>, also known as Euclid of Alexandria, was a Greek mathematician, often referred to as the "Father of Geometry". He was active in Alexandria during the reign of Ptolemy I.
-                                                        <a href="#">Wikipedia</a>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                                            current effect. rogue laws of physics, star stuff harvesting
-                                                            star light, <span class="mytooltip tooltip-effect-2"><span
-                                                                    class="tooltip-item2">quasar</span><span
-                                                                    class="tooltip-content4 clearfix"><span
-                                                                    class="tooltip-text2"><strong>Quasars</strong> are believed to be powered by accretion of material into supermassive black holes in the nuclei of distant galaxies, making these luminous versions of the general... <a
-                                                                    href="#">Wikipedia</a></span></span>
-                                        </span> encyclopaedia galactica are creatures of the cosmos the only home we've
-                                                            ever known ship of the imagination prime number courage of
-                                                            our questions.
-                                                        </p>
+                                                        <div class="editor" id="viewEditor"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,9 +320,10 @@
                 <!-- 模态框头部 -->
                 <div class="modal-header">
                     <div style="float:left">
-                    <h4 class="modal-title" id="pModalLabel">编辑邮件合并条目</h4></div>
+                        <h4 class="modal-title" id="pModalLabel">编辑邮件合并条目</h4></div>
                     <div style="float:right">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
 
                 </div>
                 <!-- 模态框主体 -->
@@ -385,6 +370,7 @@
             $('#unit').val(obj.unit);
             $('#value').val(obj.testvalue__value);
         };
+
         //保存参数值
         function save() {
             let id = $('#paraid').val();
@@ -422,9 +408,9 @@
             })
         }
 
-        //CKEditor初始化
+        //CKEditor编辑器初始化
         DecoupledDocumentEditor
-            .create(document.querySelector('.editor'), {
+            .create(document.querySelector('#editor'), {
                 toolbar: {
                     items: [
                         'heading',
@@ -476,10 +462,95 @@
                 console.error(error);
             });
 
+        //CKEditor查看栏初始化
+        DecoupledDocumentEditor.create(document.querySelector('#viewEditor'), {
+            {% comment %}toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'fontSize',
+                    'fontFamily',
+                    {#'|',#}
+                    {#'fontColor',#}
+                    'fontBackgroundColor',
+                    {#'|',#}
+                    'bold',
+                    {#'underline',#}
+                    {#'strikethrough',#}
+                    '|',
+                    'alignment',
+                    '|',
+                    'numberedList',
+                    {#'bulletedList',#}
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    {#'link',#}
+                    {#'blockQuote',#}
+                    'imageUpload',
+                    {#'insertTable',#}
+                    {#'mediaEmbed',#}
+                    '|',
+                    'undo',
+                    'redo',
+                    'code',
+                    'htmlEmbed'
+                ],
+                shouldNotGroupWhenFull: true
+            },{% endcomment %}
+            language: 'zh-cn',
+            licenseKey: '',
+        })
+            .then(editor => {
+                {#window.editor = editor;#}
+                // Set a custom container for the toolbar.
+                {% comment %}document.querySelector('.document-editor__toolbar').appendChild(editor.ui.view.toolbar.element);
+                document.querySelector('.ck-toolbar').classList.add('ck-reset_all');{% endcomment %}
+
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: jqy0xmyycnos-nx2v6m9150m3');
+                console.error(error);
+            });
+
+        {#document.querySelector('#viewEditor').setReadOnly(true);#}
+        //预览数据
+        document.querySelector('#preview').addEventListener('click', () => {
+            const editorData = window.editor.getData();
+            console.log(editorData);
+            DecoupledDocumentEditor.instances["#viewEditor"].setData(editorData, function () {
+                DecoupledDocumentEditor.instances["#viewEditor"].readOnly(true);
+            });
+        });
+
         //提交段落数据
         document.querySelector('#submit').addEventListener('click', () => {
             const editorData = window.editor.getData();
             console.log(editorData);
+            $.post("{% url 'para_save' %}", {
+                id: pvid,
+                parameter: id,
+                value: v,
+                csrfmiddlewaretoken: csrf,
+                pid: pid
+            }, function (result) {
+                if (result.msg == 'success') {
+                    alert('Success!');
+                    window.location.href = "{% url 'demo' %}"
+                } else {
+                    $('#savepara').attr("disabled", false);
+                    {% comment %}$.globalMessenger().post({
+                        message: result.data,
+                        hideAfter: 6,
+                        type: result.msg,
+                        //showCloseButton: true
+                    });{% endcomment %}
+                    alert('Error!');
+                }
+            })
         });
     </script>
 {% endblock %}
