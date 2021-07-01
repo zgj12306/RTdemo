@@ -19,19 +19,20 @@ from RTdemo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.para_in, name='demo'),
-    path("demo/", views.para_in_new, name='demo_new'),
-    path("<int:cid>/", views.para_in, name='demo'),
     # path("parameter",views.para_in,name='demo_page'),
     path("para_save/", views.save_parameter, name='para_save'),
     # 显示当前章节名
     path("show_chapter/", views.chapter_name, name='show_chapter'),
     # 按章节填写值
     path("filing/<int:chpid>/", views.load_detail, name='filing'),
-path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
-    #主题示例页面
+    path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
+
+    path("", views.para_in, name='demo'),
+    path("demo/", views.para_in_new, name='demo_new'),
+    path("<int:cid>/", views.para_in, name='demo'),
+    # 主题示例页面
     path("tooltip/", views.tooltip, name='tooltip'),
 
-    #Excel sheet示例页
-    path("sheet_demo/", views.tooltip, name='sheet'),
+    # Excel sheet示例页
+    path("sheet_demo/", views.sheet_show, name='sheet'),
 ]
