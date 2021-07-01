@@ -63,7 +63,7 @@ def para_in(request):
     # values = values.append(d_list)
     context = {"list": values, "chapter": chapter}
     print(context)
-    return render(request, "demo_page_old.html", context)
+    return render(request, "new_demo_page.html", context)
 
 
 # 保存（更新、插入）单个参数值
@@ -84,17 +84,18 @@ def save_parameter(request):
 
 
 # ？保存一个章节的全部内容？
-def save_paragraph(request,chpid):
+def save_paragraph(request, chpid):
     if request.POST:
         if request.POST['chpid'] != "":
-            pg=Paragraph.objects.get(chp_id=request.POST['chpid'])
+            pg = Paragraph.objects.get(chp_id=request.POST['chpid'])
             # ？判断是否已存在
-            #如果已有数据，更新一个值
-            pg.content=request.POST.data
+            # 如果已有数据，更新一个值
+            pg.content = request.POST.data
             pg.save()
         else:
             return json_response('没有提供章节id！')
     return json_response('本章节保存成功！')
+
 
 # 加载章节明细页面
 def load_detail(request, chpid):
@@ -104,7 +105,8 @@ def load_detail(request, chpid):
     p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
     # 获取章节段落文本
-    paragraph=Paragraph.objects.filter(chp_id=chpid).values("id","content","temp_id")
+    paragraph = Paragraph.objects.filter(chp_id=chpid).values("id", "content", "temp_id", "proj_id")
+
     values = filter_none(p_val_list)
     # 处理章节名称层次
     c_value = filter_none(c_detail)
@@ -121,6 +123,12 @@ def load_detail(request, chpid):
         title.append(c_value)
     context = {"list": values, "chapter": title}
     return render(request, "filing.html", context)
+
+
+# Excel表测试页
+def sheet_show(request):
+    return render(request, "sheet_demo.html")
+
 
 # 测试章节明细页面用
 def test_load_detail(request, chpid):

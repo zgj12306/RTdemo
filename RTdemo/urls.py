@@ -31,4 +31,7 @@ urlpatterns = [
 path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
     #主题示例页面
     path("tooltip/", views.tooltip, name='tooltip'),
+
+    #Excel sheet示例页
+    path("sheet_demo/", views.tooltip, name='sheet'),
 ]
