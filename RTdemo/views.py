@@ -125,9 +125,38 @@ def load_detail(request, chpid):
     return render(request, "filing.html", context)
 
 
-# Excel表测试页
+# Excel表测试页加载
 def sheet_show(request):
-    return render(request, "sheet_demo.html")
+    tid = 1
+    # 获取章节中所有表
+    table_list = Table.objects.filter(id=tid)
+    # for tb in table_list:
+    context = {"tb_list": table_list}
+    return render(request, "sheet_demo.html", context)
+
+
+# sheet表保存
+def save_table(request, type, rid, tid, name, sort, chpid):
+    data = request.POST['data']
+    # 给模板设置表值
+    if type == 'template':
+        tb = Table.objects.filter(temp_id=rid, id=tid)
+        # 对象为空，不存在，需要插入
+        if not tb:
+            tb = Table(name=name, sort=sort, table_data=data, chp_id=chpid, temp_id=rid)
+        # 更新
+        else:
+            tb.save()
+    # 给项目表填值
+    elif type == 'project':
+        tb = Table.objects.filter(proj_id=rid, id=tid)
+        # 对象为空，不存在，需要插入
+        if not tb:
+            tb = Table(name=name, sort=sort, table_data=data, chp_id=chpid, proj_id=rid)
+        else:
+            tb.save()
+
+    return json_response('保存成功！')
 
 
 # 测试章节明细页面用

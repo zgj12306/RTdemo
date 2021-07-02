@@ -56,7 +56,7 @@ class Paragraph(models.Model):
         return self.chp
 
 
-# 表
+# 表的全部内容
 class Table(models.Model):
     name = models.CharField('表名称', max_length=200, null=False)
     sort = models.IntegerField('排序', null=False)
@@ -64,12 +64,13 @@ class Table(models.Model):
     table_data = models.TextField('表格内容', null=True, blank=True)
     chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True, default=1)
     temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
+    proj= models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-# 表字段
+# 表字段（不用）
 class Column(models.Model):
     name = models.CharField('列名称', max_length=200, null=False)
     header = models.CharField('二层表头列名', max_length=200, null=True, blank=True)
