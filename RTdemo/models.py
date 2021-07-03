@@ -56,18 +56,26 @@ class Paragraph(models.Model):
         return self.chp
 
 
-# 表的全部内容
+# 表基本信息和表头
 class Table(models.Model):
     name = models.CharField('表名称', max_length=200, null=False)
     sort = models.IntegerField('排序', null=False)
-    # row_count = models.IntegerField('初始行数', null=False, default=1)
-    table_data = models.TextField('表格内容', null=True, blank=True)
+    table_headers = models.TextField('表格头', null=True, blank=True)
     chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True, default=1)
     temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
-    proj= models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, blank=True, null=True)
+    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+
+# 表内容
+class TableData(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, db_index=True, default=1)
+    data = models.TextField('表值', null=True, blank=True)
+    chp = models.ForeignKey(Chapter, on_delete=models.CASCADE, db_index=True, default=1)
+    temp = models.ForeignKey(Template, on_delete=models.CASCADE, db_index=True, default=1)
+    proj = models.ForeignKey(Projects, on_delete=models.CASCADE, db_index=True, blank=True, null=True)
 
 
 # 表字段（不用）
