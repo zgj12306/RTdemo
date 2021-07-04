@@ -28,8 +28,9 @@ urlpatterns = [
     path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
 
     path("", views.para_in, name='demo'),
-    path("demo/", views.para_in_new, name='demo_new'),
     path("<int:cid>/", views.para_in, name='demo'),
+    path("demo/", views.para_in_new, name='demo_new'),
+
     # 主题示例页面
     path("tooltip/", views.tooltip, name='tooltip'),
 
