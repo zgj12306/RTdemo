@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpRequest
 
 
 def response_as_json(data):
-    jsonString = json.dumps(data)
+    jsonString = json.dumps(data, ensure_ascii=False)
     response = HttpResponse(
         # json.dumps(dataa, cls=MyEncoder),
         jsonString,

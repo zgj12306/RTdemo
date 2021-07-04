@@ -22,7 +22,7 @@ urlpatterns = [
     # path("parameter",views.para_in,name='demo_page'),
     path("para_save/", views.save_parameter, name='para_save'),
     # 显示当前章节名
-    path("show_chapter/", views.chapter_name, name='show_chapter'),
+    path("show_chapter/<int:cid>", views.chapter_name, name='show_chapter'),
     # 按章节填写值
     path("filing/<int:chpid>/", views.load_detail, name='filing'),
     path("testfiling/<int:chpid>/", views.test_load_detail, name='testfiling'),
@@ -35,4 +35,7 @@ urlpatterns = [
 
     # Excel sheet示例页
     path("sheet_demo/", views.sheet_show, name='sheet'),
+    path("save_table/", views.save_table, name='save_table'),
+    path("test/", views.test, name='test'),
+    path("test1/", views.test1, name='test1'),
 ]
