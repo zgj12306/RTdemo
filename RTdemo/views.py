@@ -6,13 +6,24 @@ from RTdemo.common.response import json_response, json_error, read_file
 from django.db import models
 from django.db.models import Q
 import os
+from django.http import HttpResponse
 
+def test(request):
+    cid = 1
+    chapter = chapter_name(cid)
 
+    return json_response(str(chapter['sort']) + '.' + chapter['name'])
+
+def test1(request):
+    p_val_list = Parameters.objects.filter(chp_id=1).values("id", "name", "display_name", "testvalue__value",
+                                                                "testvalue__id", "unit", "testvalue__proj_id")
+    context = {'list': p_val_list}
+    return render(request, "test1.html", context)
 # 获取章节全名，返回有问题（不用）
 def chapter_name(cid):
     data = Chapter.objects.filter(id=cid).values("layer", "parent_id", "sort", "name")
-    d_list = data[:]
-    return json_response(d_list)
+    d_list = data[0]
+    return d_list
 
 
 # 获取参数列表（测试用）
@@ -54,6 +65,7 @@ def para_in(request):
         d_list = Chapter.objects.filter(id=q).values("layer", "parent_id", "sort", "name")
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
+
     else:
         # para_list = Parameters.objects.all()
         p_val_list = Parameters.objects.values("id", "name", "display_name", "testvalue__value", "testvalue__id",
@@ -194,7 +206,5 @@ def filter_none(values):
         for key in row:
             if row[key] is None:
                 row[key] = ''
-            else:
-                row[key]
         ret.append(row)
     return ret
