@@ -1,5 +1,6 @@
 <html lang="zh-cn">
 <meta charset="UTF-8">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://jspreadsheet.com/v7/jspreadsheet.js"></script>
 {#<script type="text/javascript" src="/static/jspreadsheet/jspreadsheet.js "></script>#}
 <script src="https://jsuites.net/v4/jsuites.js"></script>
@@ -11,29 +12,34 @@
 
 <body>
 <div class="container">
-    <h3>表28 稳定性结果表</h3>
-    <div id="spreadsheet"></div>
-{#    <div id="spreadsheet2"></div>#}
+    <form>
+        <h3>表<input type="text" id="tsort" value="28"> <input type="text" id="tname" value="稳定性结果表"></h3>
+        <div><input type="hidden" id="type" value="template">
+        <input type="text" id="chpid" value="6">
+        <input type="text" id="tempid" value="1"></div>
+        <div id="spreadsheet"></div>
+        {#    <div id="spreadsheet2"></div>#}
         <div>
-        <input type='button' value='新建' onclick="addrow(1)"/>
-        <input type='button' value='保存' id="save" onclick="saveTable()"/></div>
-    </div>
+            <input type='button' value='新建' onclick="addrow(1)"/>
+            <input type='button' value='保存' id="save" onclick="saveTable()"/></div>
+
+    </form>
 </div>
 
 
 <script>
     var data = [
-        [0, '未检出未检出未检出', 'NA', 101.84, 'NA', 93.22,'NA'],
+        [0, '未检出未检出未检出', 'NA', 101.84, 'NA', 93.22, 'NA'],
     ];
     table = jspreadsheet(document.getElementById('spreadsheet'), {
         data: data,
         columns: [{type: 'text', title: '时间（h）', width: '80'},
-        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
-        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
-        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
-        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
-        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
-        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},],
+            {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+            {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
+            {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+            {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
+            {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+            {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},],
         nestedHeaders: [[{title: '', colspan: '1'},
             {title: '供试品溶液', colspan: '2'},
             {title: '100%限度浓度对照品溶液', colspan: '2'},
@@ -43,53 +49,53 @@
         minDimensions: [7, 6],
         license: 'NDc4ZDc3NWJiNjIzNzU4MTVmNjA4MjdlYjk1MjlmZDZiYzk4MWM3ZmM2OTdiZDczOWQ2MGRkZjdhNTc4ODExNmMyMDZkZDIwNzExYzJmM2EwOTBiYWUxM2M0NGY1YzNiZmVmZTY1OGY5OWI2ZDg2NDMyNjgwOTFhZGQ2MzVlYmEsZXlKdVlXMWxJam9pY0dGMWJDNW9iMlJsYkNJc0ltUmhkR1VpT2pFMk5EY3pPRGc0TURBc0ltUnZiV0ZwYmlJNld5SnFjMmhsYkd3dWJtVjBJaXdpWTI5a1pYTmhibVJpYjNndVkyOXRJaXdpYW5Od2NtVmhaSE5vWldWMExtTnZiU0lzSW1OellpNWhjSEFpTENKalpIQnVMbWx2SWl3aWJHOWpZV3hvYjNOMElsMHNJbkJzWVc0aU9pSXlJbjA9',
         contextMenu: function (obj, x, y, e) {
-                var items = [];
-                if (y == null) {
-                    // Sorting
-                    if (obj.options.columnSorting == true) {
-                        // Line
-                        items.push({type: 'line'});
+            var items = [];
+            if (y == null) {
+                // Sorting
+                if (obj.options.columnSorting == true) {
+                    // Line
+                    items.push({type: 'line'});
 
-                        items.push({
-                            title: obj.options.text.orderAscending,
-                            onclick: function () {
-                                obj.orderBy(x, 0);
-                            }
-                        });
-                        items.push({
-                            title: obj.options.text.orderDescending,
-                            onclick: function () {
-                                obj.orderBy(x, 1);
-                            }
-                        });
-                    }
-                } else {
-                    // Insert new row
-                    if (obj.options.allowInsertRow == true) {
-                        items.push({
-                            title: obj.options.text.insertANewRowAfter,
-                            onclick: function () {
-                                obj.insertRow(1, parseInt(y));
-                            }
-                        });
-                    }
-
-                    if (obj.options.allowDeleteRow == true) {
-                        items.push({
-                            title: obj.options.text.deleteSelectedRows,
-                            onclick: function () {
-                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            }
-                        });
-                    }
-
+                    items.push({
+                        title: obj.options.text.orderAscending,
+                        onclick: function () {
+                            obj.orderBy(x, 0);
+                        }
+                    });
+                    items.push({
+                        title: obj.options.text.orderDescending,
+                        onclick: function () {
+                            obj.orderBy(x, 1);
+                        }
+                    });
                 }
-                return items;
-            },
-            text: {
-                insertANewRowAfter: "插入一行",
-                deleteSelectedRows: "删除选中行"
+            } else {
+                // Insert new row
+                if (obj.options.allowInsertRow == true) {
+                    items.push({
+                        title: obj.options.text.insertANewRowAfter,
+                        onclick: function () {
+                            obj.insertRow(1, parseInt(y));
+                        }
+                    });
+                }
+
+                if (obj.options.allowDeleteRow == true) {
+                    items.push({
+                        title: obj.options.text.deleteSelectedRows,
+                        onclick: function () {
+                            obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                        }
+                    });
+                }
+
             }
+            return items;
+        },
+        text: {
+            insertANewRowAfter: "插入一行",
+            deleteSelectedRows: "删除选中行"
+        }
     });
 
     {% comment %}    var data2 = [
@@ -186,12 +192,22 @@
 
     //提交保存
     function saveTable() {
-        txt = JSON.stringify(table.getDataAndFormula(false))
-        txt1 = JSON.stringify(table.getHeaders())
+        let tsort = $('#tsort').val();
+        let tname = $('#tname').val();
+        let type = $('#type').val();
+        let chpid = $('#chpid').val();
+        let tempid = $('#tempid').val();
+        let data = JSON.stringify(table.getDataAndFormula(false))
+        let header = JSON.stringify(table.getHeaders())
         {#csrf = $("input[name='csrfmiddlewaretoken']").val()#}
-        $.post("{% url 'sheet_demo' %}", {
-            data: txt,
-            header: txt1,
+        $.post("{% url 'save_table' %}", {
+            sort:tsort,
+            name:tname,
+            type:type,
+            chpid:chpid,
+            rid:tempid,
+            data: data,
+            header: header,
             {#csrfmiddlewaretoken: csrf   #}
         }, function (result) {
             if (result.code == undefined) {

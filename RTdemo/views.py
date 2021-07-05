@@ -149,7 +149,12 @@ def sheet_show(request):
 
 
 # sheet表保存
-def save_table(request, type, rid, tid, name, sort, chpid):
+def save_table(request):
+    rid=0,
+    tid=0,
+    name='',
+    sort=0,
+    chpid=0
     data = request.POST['data']
     # 给模板设置表值
     if type == 'template':
