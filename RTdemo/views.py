@@ -11,7 +11,6 @@ from django.http import HttpResponse
 def test(request):
     cid = 1
     chapter = chapter_name(cid)
-
     return json_response(str(chapter['sort']) + '.' + chapter['name'])
 
 def test1(request):
@@ -19,7 +18,9 @@ def test1(request):
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
     context = {'list': p_val_list}
     return render(request, "test1.html", context)
-# 获取章节全名，返回有问题（不用）
+
+
+# 获取章节全名，简单
 def chapter_name(cid):
     data = Chapter.objects.filter(id=cid).values("layer", "parent_id", "sort", "name")
     d_list = data[0]
@@ -34,7 +35,6 @@ def para_in_new(request):
     # rows = cursor.fetchall()
     # data = {"paras": rows}
     # 获取所有参数列表
-    # 有参数对应的章节ID
     q = None
     d_list = []
     if 'q' in request.GET:
@@ -61,8 +61,8 @@ def para_in(request):
     d_list = []
     if 'q' in request.GET:
         q = request.GET['q']
-        # 显示章节名称。未完成。搜索章节时会引起报错。
-        d_list = Chapter.objects.filter(id=q).values("layer", "parent_id", "sort", "name")
+        # 显示章节名称。
+        d_list = chapter_name(q)
         p_val_list = Parameters.objects.filter(chp_id=q).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
 
@@ -71,9 +71,9 @@ def para_in(request):
         p_val_list = Parameters.objects.values("id", "name", "display_name", "testvalue__value", "testvalue__id",
                                                "unit", "testvalue__proj_id")
     values = filter_none(p_val_list)
-    chapter = filter_none(d_list)
+    # chapter = filter_none(d_list)
     # values = values.append(d_list)
-    context = {"list": values, "chapter": chapter}
+    context = {"list": values, "chapter": d_list}
     print(context)
     return render(request, "new_demo_page.html", context)
 
@@ -112,7 +112,7 @@ def save_paragraph(request, chpid):
 # 加载章节明细页面
 def load_detail(request, chpid):
     # 获取章节名称信息
-    c_detail = Chapter.objects.filter(id=chpid).values("layer", "parent_id", "sort", "name")
+    c_detail = chapter_name(chpid)
     # 获取章节参数列表
     p_val_list = Parameters.objects.filter(chp_id=chpid).values("id", "name", "display_name", "testvalue__value",
                                                                 "testvalue__id", "unit", "testvalue__proj_id")
@@ -121,18 +121,19 @@ def load_detail(request, chpid):
 
     values = filter_none(p_val_list)
     # 处理章节名称层次
-    c_value = filter_none(c_detail)
+    # c_value = filter_none(c_detail)
     title = []
-    if c_value[0]['layer'] == 1:
+    print(c_detail['layer'])
+    if c_detail['layer'] == 1:
         # 只有一级
-        title = c_value
-    elif c_value[0]['layer'] == 2:
+        title = str(c_detail['sort']) + '.' + c_detail['name']
+    elif c_detail['layer'] == 2:
         # 有两级，再向上获取一级的信息
         # 此分支未测试
-        p_detail = Chapter.objects.filter(id=c_value[0].parent_id).values("layer", "parent_id", "sort", "name")
-        p_value = filter_none(p_detail)
-        title = p_value
-        title.append(c_value)
+        p_detail = chapter_name(c_detail.parent_id)
+        # p_value = filter_none(p_detail)
+        title = str(p_detail['sort']) + '.'
+        title.append(str(c_detail['sort']) + '.' + c_detail['name'])
     context = {"list": values, "chapter": title}
     return render(request, "filing.html", context)
 

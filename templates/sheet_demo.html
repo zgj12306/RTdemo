@@ -1,142 +1,207 @@
 <html lang="zh-cn">
 <meta charset="UTF-8">
 <script src="https://jspreadsheet.com/v7/jspreadsheet.js"></script>
+{#<script type="text/javascript" src="/static/jspreadsheet/jspreadsheet.js "></script>#}
 <script src="https://jsuites.net/v4/jsuites.js"></script>
-<link rel="stylesheet" href="https://jspreadsheet.com/v7/jspreadsheet.css" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/static/jspreadsheet/jspreadsheet.css">
+<link rel="stylesheet" type="text/css" href="/static/jspreadsheet/jssstyle.css">
+{#<link rel="stylesheet" href="https://jspreadsheet.com/v7/jspreadsheet.css" type="text/css"/>#}
+
 <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css"/>
 
 <body>
 <div class="container">
     <h3>表28 稳定性结果表</h3>
     <div id="spreadsheet"></div>
-{% comment %}    <div>
+{#    <div id="spreadsheet2"></div>#}
+        <div>
         <input type='button' value='新建' onclick="addrow(1)"/>
-        <input type='button' value='保存' id="save" onclick="saveTable(1)"/></div>
-    </div>{% endcomment %}
+        <input type='button' value='保存' id="save" onclick="saveTable()"/></div>
+    </div>
 </div>
 
 
 <script>
- {% comment %}   var data = [
-    [ '1', '2', '3', '4', '5', '6' ],
-];
-        jspreadsheet(document.getElementById('spreadsheet'), {
-        data: data,
-        minDimensions: [10, 10],
-        license: 'NDc4ZDc3NWJiNjIzNzU4MTVmNjA4MjdlYjk1MjlmZDZiYzk4MWM3ZmM2OTdiZDczOWQ2MGRkZjdhNTc4ODExNmMyMDZkZDIwNzExYzJmM2EwOTBiYWUxM2M0NGY1YzNiZmVmZTY1OGY5OWI2ZDg2NDMyNjgwOTFhZGQ2MzVlYmEsZXlKdVlXMWxJam9pY0dGMWJDNW9iMlJsYkNJc0ltUmhkR1VpT2pFMk5EY3pPRGc0TURBc0ltUnZiV0ZwYmlJNld5SnFjMmhsYkd3dWJtVjBJaXdpWTI5a1pYTmhibVJpYjNndVkyOXRJaXdpYW5Od2NtVmhaSE5vWldWMExtTnZiU0lzSW1OellpNWhjSEFpTENKalpIQnVMbWx2SWl3aWJHOWpZV3hvYjNOMElsMHNJbkJzWVc0aU9pSXlJbjA9',
-    });{% endcomment %}
-
     var data = [
-        ['室外消火栓系统', '建筑类别1', 15, 20, 0.5, true, 36, false],
-        ['室内消火栓系统', '建筑类别2', 10, 15, 0.5, false, 36, true],
+        [0, '未检出未检出未检出', 'NA', 101.84, 'NA', 93.22,'NA'],
     ];
-
     table = jspreadsheet(document.getElementById('spreadsheet'), {
         data: data,
-        columns: [
-            {type: 'text', title: '系统名称', width: '100'},
-            {type: 'text', title: '建筑类别', width: '100'},
-            {type: 'text', title: '最小设计流量(L/s)', width: '100'},
-            {type: 'text', title: '设计流量(L/s)', width: '100'},
-            {type: 'text', title: '灭火持续时间(h)', width: '100'},
-            {type: 'checkbox', title: '是否计入一次灭火设计流量', width: '200'},
-            {type: 'text', title: '用水量(m³)', width: '100'},
-            {type: 'checkbox', title: '是否计入消防水池容积', width: '180'},
-        ],
-        nestedHeaders: [
-            [
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: 'q(B)×t(B)×3600/1000', colspan: '1'},
-                {title: '', colspan: '1'},
-            ],
-            [
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: 'q(B)', colspan: '1'},
-                {title: 't(B)', colspan: '1'},
-                {title: '', colspan: '1'},
-                {title: 'V(B)', colspan: '1'},
-                {title: '', colspan: '1'},
-            ],
+        columns: [{type: 'text', title: '时间（h）', width: '80'},
+        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
+        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},
+        {type: 'text', title: '检测浓度(ng/ml)', width: '120'},
+        {type: 'text', title: '与初始检测浓度之比（%）', width: '120'},],
+        nestedHeaders: [[{title: '', colspan: '1'},
+            {title: '供试品溶液', colspan: '2'},
+            {title: '100%限度浓度对照品溶液', colspan: '2'},
+            {title: '100%限度浓度加标供试品溶液', colspan: '2'},]
         ],
         wordWrap: true,
-        allowComments: true,
-        license:'YmU4NjdhMjBlYzg1YmZkNWY2ZmQ5NGQ2N2UwMTRmNDBlOTllZjZhNTM5NjRkYTJhNmFlNjZjMWZhNTAwYTRiYWI5MGJmZDM4M2FiNTRiYmJjM2E2YjdlMGIxMWU4ZmY3MmM3YmE1MGEyOWFkY2Q3ZTU5Yjk5YThmYzk0NDRkM2MsZXlKdVlXMWxJam9pYW5Oc2N5SXNJbVJoZEdVaU9qRTJNamd3TXpFMk1EQXNJbVJ2YldGcGJpSTZXeUpzYjJOaGJHaHZjM1FpTENKc2IyTmhiR2h2YzNRaVhTd2ljR3hoYmlJNk1IMD0=',
+        minDimensions: [7, 6],
+        license: 'NDc4ZDc3NWJiNjIzNzU4MTVmNjA4MjdlYjk1MjlmZDZiYzk4MWM3ZmM2OTdiZDczOWQ2MGRkZjdhNTc4ODExNmMyMDZkZDIwNzExYzJmM2EwOTBiYWUxM2M0NGY1YzNiZmVmZTY1OGY5OWI2ZDg2NDMyNjgwOTFhZGQ2MzVlYmEsZXlKdVlXMWxJam9pY0dGMWJDNW9iMlJsYkNJc0ltUmhkR1VpT2pFMk5EY3pPRGc0TURBc0ltUnZiV0ZwYmlJNld5SnFjMmhsYkd3dWJtVjBJaXdpWTI5a1pYTmhibVJpYjNndVkyOXRJaXdpYW5Od2NtVmhaSE5vWldWMExtTnZiU0lzSW1OellpNWhjSEFpTENKalpIQnVMbWx2SWl3aWJHOWpZV3hvYjNOMElsMHNJbkJzWVc0aU9pSXlJbjA9',
         contextMenu: function (obj, x, y, e) {
-            var items = [];
-            if (y == null) {
-                // Sorting
-                if (obj.options.columnSorting == true) {
-                    // Line
-                    items.push({type: 'line'});
+                var items = [];
+                if (y == null) {
+                    // Sorting
+                    if (obj.options.columnSorting == true) {
+                        // Line
+                        items.push({type: 'line'});
 
-                    items.push({
-                        title: obj.options.text.orderAscending,
-                        onclick: function () {
-                            obj.orderBy(x, 0);
-                        }
-                    });
-                    items.push({
-                        title: obj.options.text.orderDescending,
-                        onclick: function () {
-                            obj.orderBy(x, 1);
-                        }
-                    });
-                }
-            } else {
-                // Insert new row
-                if (obj.options.allowInsertRow == true) {
-                    items.push({
-                        title: obj.options.text.insertANewRowAfter,
-                        onclick: function () {
-                            obj.insertRow(1, parseInt(y));
-                        }
-                    });
-                }
+                        items.push({
+                            title: obj.options.text.orderAscending,
+                            onclick: function () {
+                                obj.orderBy(x, 0);
+                            }
+                        });
+                        items.push({
+                            title: obj.options.text.orderDescending,
+                            onclick: function () {
+                                obj.orderBy(x, 1);
+                            }
+                        });
+                    }
+                } else {
+                    // Insert new row
+                    if (obj.options.allowInsertRow == true) {
+                        items.push({
+                            title: obj.options.text.insertANewRowAfter,
+                            onclick: function () {
+                                obj.insertRow(1, parseInt(y));
+                            }
+                        });
+                    }
 
-                if (obj.options.allowDeleteRow == true) {
-                    items.push({
-                        title: obj.options.text.deleteSelectedRows,
-                        onclick: function () {
-                            obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                        }
-                    });
-                }
+                    if (obj.options.allowDeleteRow == true) {
+                        items.push({
+                            title: obj.options.text.deleteSelectedRows,
+                            onclick: function () {
+                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                            }
+                        });
+                    }
 
+                }
+                return items;
+            },
+            text: {
+                insertANewRowAfter: "插入一行",
+                deleteSelectedRows: "删除选中行"
             }
-            return items;
-        },
-        text: {
-            insertANewRowAfter: "插入一行",
-            deleteSelectedRows: "删除选中行"
-        }
     });
 
-    //提交保存
-    {#function save() {#}
-    {#    table{{ table.id }}.formula = []#}
-    {#    txt = JSON.stringify(table{{ table.id }}.getDataAndFormula(false))#}
-    {#    txt1 = JSON.stringify(table{{ table.id }}.getHeaders())#}
-    {#    csrf = $("input[name='csrfmiddlewaretoken']").val()#}
-    {#    $.post("{% url 'excel' table.pid %}", {#}
-    {#        data: txt,#}
-    {#        header: txt1,#}
-            {#csrfmiddlewaretoken: csrf#}
-    {#    }, function (result) {#}
-    {#        if (result.code == undefined) {#}
-    {#            window.location.href = '/login/'#}
-    {#        } else {#}
-    {#            alert('Error!');#}
-    {#        }#}
-    {#    })#}
-    {#}#}
+    {% comment %}    var data2 = [
+            ['室外消火栓系统', '建筑类别1', 15, 20, 0.5, true, 36, false],
+            ['室内消火栓系统', '建筑类别2', 10, 15, 0.5, false, 36, true],
+        ];
 
+        table = jspreadsheet(document.getElementById('spreadsheet2'), {
+            data: data2,
+            columns: [
+                {type: 'text', title: '系统名称', width: '100'},
+                {type: 'text', title: '建筑类别', width: '100'},
+                {type: 'text', title: '最小设计流量(L/s)', width: '100'},
+                {type: 'text', title: '设计流量(L/s)', width: '100'},
+                {type: 'text', title: '灭火持续时间(h)', width: '100'},
+                {type: 'checkbox', title: '是否计入一次灭火设计流量', width: '200'},
+                {type: 'text', title: '用水量(m³)', width: '100'},
+                {type: 'checkbox', title: '是否计入消防水池容积', width: '180'},
+            ],
+            nestedHeaders: [
+                [
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: 'q(B)×t(B)×3600/1000', colspan: '2'},
+                    {#{title: '', colspan: '1'},#}
+                ],
+                [
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: 'q(B)', colspan: '1'},
+                    {title: 't(B)', colspan: '1'},
+                    {title: '', colspan: '1'},
+                    {title: 'V(B)', colspan: '1'},
+                    {title: '', colspan: '1'},
+                ],
+            ],
+            wordWrap: true,
+            allowComments: true,
+            license:'YmU4NjdhMjBlYzg1YmZkNWY2ZmQ5NGQ2N2UwMTRmNDBlOTllZjZhNTM5NjRkYTJhNmFlNjZjMWZhNTAwYTRiYWI5MGJmZDM4M2FiNTRiYmJjM2E2YjdlMGIxMWU4ZmY3MmM3YmE1MGEyOWFkY2Q3ZTU5Yjk5YThmYzk0NDRkM2MsZXlKdVlXMWxJam9pYW5Oc2N5SXNJbVJoZEdVaU9qRTJNamd3TXpFMk1EQXNJbVJ2YldGcGJpSTZXeUpzYjJOaGJHaHZjM1FpTENKc2IyTmhiR2h2YzNRaVhTd2ljR3hoYmlJNk1IMD0=',
+            contextMenu: function (obj, x, y, e) {
+                var items = [];
+                if (y == null) {
+                    // Sorting
+                    if (obj.options.columnSorting == true) {
+                        // Line
+                        items.push({type: 'line'});
+
+                        items.push({
+                            title: obj.options.text.orderAscending,
+                            onclick: function () {
+                                obj.orderBy(x, 0);
+                            }
+                        });
+                        items.push({
+                            title: obj.options.text.orderDescending,
+                            onclick: function () {
+                                obj.orderBy(x, 1);
+                            }
+                        });
+                    }
+                } else {
+                    // Insert new row
+                    if (obj.options.allowInsertRow == true) {
+                        items.push({
+                            title: obj.options.text.insertANewRowAfter,
+                            onclick: function () {
+                                obj.insertRow(1, parseInt(y));
+                            }
+                        });
+                    }
+
+                    if (obj.options.allowDeleteRow == true) {
+                        items.push({
+                            title: obj.options.text.deleteSelectedRows,
+                            onclick: function () {
+                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                            }
+                        });
+                    }
+
+                }
+                return items;
+            },
+            text: {
+                insertANewRowAfter: "插入一行",
+                deleteSelectedRows: "删除选中行"
+            }
+        });{% endcomment %}
+
+    //提交保存
+    function saveTable() {
+        txt = JSON.stringify(table.getDataAndFormula(false))
+        txt1 = JSON.stringify(table.getHeaders())
+        {#csrf = $("input[name='csrfmiddlewaretoken']").val()#}
+        $.post("{% url 'sheet_demo' %}", {
+            data: txt,
+            header: txt1,
+            {#csrfmiddlewaretoken: csrf   #}
+        }, function (result) {
+            if (result.code == undefined) {
+                {#window.location.href = '/login/'#}
+                alert('Undefined!');
+            } else {
+                alert('Error!');
+            }
+        })
+    }
 
 
 </script>

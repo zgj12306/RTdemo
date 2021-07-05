@@ -35,7 +35,7 @@ urlpatterns = [
     path("tooltip/", views.tooltip, name='tooltip'),
 
     # Excel sheet示例页
-    path("sheet_demo/", views.sheet_show, name='sheet'),
+    path("sheet_demo/", views.sheet_show, name='sheet_demo'),
     path("save_table/", views.save_table, name='save_table'),
     path("test/", views.test, name='test'),
     path("test1/", views.test1, name='test1'),
